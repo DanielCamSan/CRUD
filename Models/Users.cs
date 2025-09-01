@@ -1,6 +1,7 @@
-﻿namespace newCRUD.Models
+﻿
+public class Users
 {
-    public class users
-    {
-    }
+    public Guid Id { get; set; }
+    public string Name { get; set; } = "";
 }
+
