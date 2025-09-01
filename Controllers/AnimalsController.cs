@@ -44,7 +44,7 @@ namespace newCRUD.Controllers
             if (index == -1) return NotFound();
 
             animal.Id = id; // conservar el mismo Id
-            _animals[index] = animal;
+            _animals[index] = animal; //si
             return Ok(animal);
         }
 
