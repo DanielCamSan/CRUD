@@ -24,5 +24,13 @@ namespace newCRUD.Controllers
             var user = _users.FirstOrDefault(a => a.Id == id);
             return user is null ? NotFound() : Ok(user);
         }
+
+        [HttpPost]
+        public ActionResult<User> Create([FromBody] User user)
+        {
+            user.Id = Guid.NewGuid();
+            _users.Add(user);
+            return CreatedAtAction(nameof(GetOne), new { id = user.Id }, user);
+        }
     }
 }
