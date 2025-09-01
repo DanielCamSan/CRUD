@@ -32,5 +32,16 @@ namespace newCRUD.Controllers
             _users.Add(user);
             return CreatedAtAction(nameof(GetOne), new { id = user.Id }, user);
         }
+
+        [HttpPut("{id:guid}")]
+        public ActionResult<Animal> Update(Guid id, [FromBody] User user)
+        {
+            var index = _users.FindIndex(a => a.Id == id);
+            if (index == -1) return NotFound();
+
+            user.Id = id;
+            _users[index] = user;
+            return Ok(user);
+        }
     }
 }
