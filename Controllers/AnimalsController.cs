@@ -8,8 +8,8 @@ namespace newCRUD.Controllers
     {
         private static readonly List<Animal> _animals = new()
             {
-                new Animal { Id = Guid.NewGuid(), Name = "Luna", Species = "Perro", Age = 3 },
-                new Animal { Id = Guid.NewGuid(), Name = "Michi", Species = "Gato", Age = 2 }
+                new Animal { Id = Guid.NewGuid(), Name = "Luna", Species = "Dog", Age = 3 },
+                new Animal { Id = Guid.NewGuid(), Name = "Michi", Species = "Cat", Age = 2 }
             };
 
         // GET api/animals
