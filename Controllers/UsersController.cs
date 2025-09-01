@@ -11,5 +11,11 @@ namespace newCRUD.Controllers
                 new User { Id = Guid.NewGuid(), Name = "Carlos", Age = 52 },
                 new User { Id = Guid.NewGuid(), Name = "Angel", Age = 21 }
             };
+
+        [HttpGet]
+        public ActionResult<IEnumerable<User>> GetAll()
+        {
+            return Ok(_users);
+        }
     }
 }
