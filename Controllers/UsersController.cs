@@ -17,5 +17,12 @@ namespace newCRUD.Controllers
         {
             return Ok(_users);
         }
+
+        [HttpGet("{id:guid}")]
+        public ActionResult<User> GetOne(Guid id)
+        {
+            var user = _users.FirstOrDefault(a => a.Id == id);
+            return user is null ? NotFound() : Ok(user);
+        }
     }
 }
