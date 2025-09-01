@@ -43,5 +43,17 @@ namespace newCRUD.Controllers
             _users[index] = user;
             return Ok(user);
         }
+
+        [HttpPatch("{id:guid}")]
+        public ActionResult<User> Patch(Guid id, [FromBody] User partial)
+        {
+            var user = _users.FirstOrDefault(a => a.Id == id);
+            if (user is null) return NotFound();
+
+            if (!string.IsNullOrEmpty(partial.Name)) user.Name = partial.Name;
+            if (partial.Age > 0) user.Age = partial.Age;
+
+            return Ok(user);
+        }
     }
 }
