@@ -16,7 +16,6 @@ newCRUD/ ├── Controllers/ │   └── LoansController.cs ├── Mod
 
 ## Loan Model:
 
-```csharp
 public class Loan
 {
     public int Id { get; set; }
