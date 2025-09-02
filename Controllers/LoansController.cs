@@ -50,11 +50,12 @@ namespace newCRUD.Controllers
 
             return Ok(loan);
         }
-
-
-
-
-
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            var removed = loans.RemoveAll(l => l.Id == id);
+            return removed == 0 ? NotFound() : NoContent();
+        }
 
 
 
