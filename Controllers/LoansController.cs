@@ -10,6 +10,32 @@ namespace newCRUD.Controllers
         private static readonly List<Loan> loans = new();
         private static int nextId = 1;
 
+        public LoansController()
+        {
+            if (!loans.Any())
+            {
+                loans.Add(new Loan
+                {
+                    Id = 1,
+                    BookTitle = "Clean Code",
+                    UserId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                    LoanDate = DateTime.UtcNow.AddDays(-5),
+                    ReturnDate = null
+                });
+                loans.Add(new Loan
+                {
+                    Id = 2,
+                    BookTitle = "The Pragmatic Programmer",
+                    UserId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    LoanDate = DateTime.UtcNow.AddDays(-2),
+                    ReturnDate = DateTime.UtcNow
+                });
+
+
+            }
+
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Loan>> GetAll()
         {
