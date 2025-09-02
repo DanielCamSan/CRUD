@@ -24,14 +24,25 @@ namespace newCRUD.Controllers
         public ActionResult<Animal> GetOne(Guid id)
         {
             var animal = _animals.FirstOrDefault(a => a.Id == id);
-            return animal is null ? NotFound() : Ok(animal);
+            return animal is null
+                ? NotFound(new { error = "Animal not found", status = 404 })
+                : Ok(animal);
         }
 
         // POST api/animals
         [HttpPost]
-        public ActionResult<Animal> Create([FromBody] Animal animal)
+        public ActionResult<Animal> Create([FromBody] CreateAnimalDto dto)
         {
-            animal.Id = Guid.NewGuid();
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var animal = new Animal
+            {
+                Id = Guid.NewGuid(),
+                Name = dto.Name.Trim(),
+                Species = dto.Species.Trim(),
+                Age = dto.Age
+            };
+
             _animals.Add(animal);
             return CreatedAtAction(nameof(GetOne), new { id = animal.Id }, animal);
         }
