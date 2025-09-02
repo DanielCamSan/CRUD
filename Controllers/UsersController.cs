@@ -27,7 +27,7 @@ namespace newCRUD.Controllers
             return user is null ? NotFound() : Ok(user);
         }
 
-        // POST api/user
+        // POST api/users
         [HttpPost]
         public ActionResult<User> Create([FromBody] User user)
         {
