@@ -29,7 +29,17 @@ namespace newCRUD.Controllers
             loans.Add(loan);
             return CreatedAtAction(nameof(GetOne), new { id = loan.Id }, loan);
         }
-        
+        [HttpPut("{id:int}")]
+        public ActionResult<Loan> Update(int id, [FromBody] Loan loan)
+        {
+            var index = loans.FindIndex(l => l.Id == id);
+            if (index == -1) return NotFound();
+            loan.Id = id;
+            loans[index] = loan;
+            return Ok(loan);
+        }
+
+
 
 
 
