@@ -52,7 +52,7 @@ namespace LoansControllers
             return Ok(author);
         }
 
-        // DELETE api/animals/{id}
+        // DELETE api/loans/{id}
         [HttpDelete("{id:guid}")]
         public IActionResult Delete(Guid id)
         {
