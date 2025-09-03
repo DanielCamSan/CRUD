@@ -7,5 +7,5 @@
 | POST   | /api/books       | Add new book      |
 | PUT    | /api/books/{title}  | Update book       |
 | PATCH  | /api/books/{title}  | Partially update book |
-
 | DELETE | /api/books/{title}  | Delete book       |
+
