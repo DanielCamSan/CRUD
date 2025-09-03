@@ -54,6 +54,13 @@ namespace newCRUD.Controllers
             return Ok(user);
         }
 
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removeUser = users.RemoveAll(u => u.Id == id);
+            return removeUser == 0 ? NotFound() : NoContent();
+        }
+
     }
 }
 
