@@ -33,6 +33,15 @@ namespace newCRUD.Controllers
             return CreatedAtAction(nameof(GetOne), new { id = newUser.Id }, newUser);
         }
 
+        [HttpPut("{id:guid}")]
+        public ActionResult<Users> Update(Guid id, Users updatedUser)
+        {
+            var index = users.FindIndex(u => u.Id == id);
+            if (index == -1) return NotFound();
+            updatedUser.Id = id; // conservar el mismo Id
+            users[index] = updatedUser;
+            return Ok(updatedUser);
+        }
 
     }
 }
