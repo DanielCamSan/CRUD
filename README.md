@@ -25,6 +25,7 @@ public class Loan
     public DateTime LoanDate { get; set; } = DateTime.UtcNow;
     public DateTime? ReturnDate { get; set; }
 }
+```
 
 ## API Endpoints
 
@@ -36,112 +37,6 @@ public class Loan
 | PUT    | `/api/loans/{id}`     | Replace an existing loan       |
 | PATCH  | `/api/loans/{id}`     | Partially update a loan        |
 | DELETE | `/api/loans/{id}`     | Delete a loan                  |
-
-## Example Payloads:
-
-### GET All Loans
-
-**Request**
-```http
-GET /api/loans
-
-**Response**
-[
-  {
-    "id": 1,
-    "bookTitle": "Clean Code",
-    "userId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "loanDate": "2025-09-02T14:00:00Z",
-    "returnDate": null
-  }
-]
-
-### GET Loan by ID
-
-**Request**
-GET /api/loans/1
-
-**Response**
-{
-  "id": 1,
-  "bookTitle": "Clean Code",
-  "userId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-  "loanDate": "2025-09-02T14:00:00Z",
-  "returnDate": null
-}
-
-### POST create loan
-
-**Request**
-POST /api/loans
-Content-Type: application/json
-
-**Body**
-{
-  "bookTitle": "The Pragmatic Programmer",
-  "userId": "a1b2c3d4-e5f6-7890-abcd-1234567890ef"
-}
-
-**Response**
-{
-  "id": 2,
-  "bookTitle": "The Pragmatic Programmer",
-  "userId": "a1b2c3d4-e5f6-7890-abcd-1234567890ef",
-  "loanDate": "2025-09-02T14:05:00Z",
-  "returnDate": null
-}
-
-### PUT Update Loan
-
-**Request**
-PUT /api/loans/2
-Content-Type: application/json
-
-**Body**
-{
-  "bookTitle": "Refactoring",
-  "userId": "a1b2c3d4-e5f6-7890-abcd-1234567890ef",
-  "loanDate": "2025-09-02T14:05:00Z",
-  "returnDate": "2025-09-10T10:00:00Z"
-}
-
-**Response**
-{
-  "id": 2,
-  "bookTitle": "Refactoring",
-  "userId": "a1b2c3d4-e5f6-7890-abcd-1234567890ef",
-  "loanDate": "2025-09-02T14:05:00Z",
-  "returnDate": "2025-09-10T10:00:00Z"
-}
-
-### PATCH Partial Update
-
-
-**Request**
-PATCH /api/loans/2
-Content-Type: application/json
-
-**Body**
-{
-  "returnDate": "2025-09-12T09:00:00Z"
-}
-
-**Response**
-{
-  "id": 2,
-  "bookTitle": "Refactoring",
-  "userId": "a1b2c3d4-e5f6-7890-abcd-1234567890ef",
-  "loanDate": "2025-09-02T14:05:00Z",
-  "returnDate": "2025-09-12T09:00:00Z"
-}
-
-### DELETE Loan
-
-**Request**
-DELETE /api/loans/2
-
-**Response**
-204 No Content
 
 ## Notes
 
