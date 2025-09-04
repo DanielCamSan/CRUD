@@ -54,7 +54,7 @@ namespace newCRUD.Controllers
 
             if (!string.IsNullOrEmpty(partial.bookName)) loan.bookName = partial.bookName;
             if (!string.IsNullOrEmpty(partial.customerName)) loan.customerName = partial.customerName;
-            return Ok(partial);
+            return Ok(loan);
         }
 
         [HttpDelete("{id:guid}")]
