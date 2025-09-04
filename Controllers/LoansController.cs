@@ -9,9 +9,9 @@ namespace newCRUD.Controllers
     {
         private static readonly List<Loans> loans = new()
         {
-            new Loans{id = Guid.NewGuid(), amount=100,date=DateTime.Now},
-            new Loans{id = Guid.NewGuid(), amount=200,date=DateTime.Now},
-            new Loans{id = Guid.NewGuid(), amount=300,date=DateTime.Now},
+            new Loans{id = Guid.NewGuid(), bookName="Flow", customerName="Sebastian", date=DateTime.Now},
+            new Loans{id = Guid.NewGuid(), bookName="The Binding Of Issac", customerName="Santiago", date=DateTime.Now},
+            new Loans{id = Guid.NewGuid(), bookName="Harry Potter",customerName="Alejandro", date=DateTime.Now},
         };
 
         [HttpGet]
@@ -52,7 +52,8 @@ namespace newCRUD.Controllers
             var loan = loans.FirstOrDefault(l => l.id == id);
             if (loan is null) return NotFound();
 
-            if (partial.amount > 0) loan.amount = partial.amount;
+            if (!string.IsNullOrEmpty(partial.bookName)) loan.bookName = partial.bookName;
+            if (!string.IsNullOrEmpty(partial.customerName)) loan.customerName = partial.customerName;
             return Ok(partial);
         }
 
