@@ -14,3 +14,12 @@ POST	api/loans	    creates a loan
 PUT	    api/loans/{id}	replace a loan
 PATCH	api/loans/{id}	replace some attributes of a loan
 DELETE	api/loans/{id}	erase a loan
+
+Method	URL		Description
+
+GET	api/books	returns the list of all books
+GET	api/books/{id}	returns a single book with that id
+POST    api/books	creates a book
+PUT	api/books/{id}  replace a book
+PATCH	api/users/{id}	replace some atributes of a book
+DELETE	api/books/{id}	erase a book
