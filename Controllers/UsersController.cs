@@ -44,7 +44,28 @@ namespace newCRUD.Controllers
             _users.Add(user);
             return CreatedAtAction(nameof(GetOne), new { id = user.Id }, user);
         }
+        
+        [HttpPut("{id:guid}")]
+        public ActionResult<Users> Update(Guid id, [FromBody] UpdateUsersDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
+            var index = _users.FindIndex(a => a.Id == id);
+            if (index == -1)
+                return NotFound(new { error = "User not found", status = 404 });
+
+            var updated = new Users
+            {
+                Id = id,
+                Name = dto.Name.Trim(),
+                Age = dto.Age,
+                email = dto.email,
+                password = dto.password
+            };
+
+            _users[index] = updated;
+            return Ok(updated);
+        }
 
 
     }
