@@ -53,4 +53,4 @@ namespace newCRUD.Models
         public string password { get; set; } = string.Empty;
     }
 }
-}
+

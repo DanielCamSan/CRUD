@@ -3,6 +3,8 @@ using newCRUD.Models;
 
 namespace newCRUD.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class UsersController :ControllerBase
     {
         private static readonly List<User> users = new()
@@ -11,12 +13,10 @@ namespace newCRUD.Controllers
             new User { Id = Guid.NewGuid(), name = "Pedro", age =25, email = "pedro@gmail.com", password="111222333" }
         };
 
-        // READ: GET api/animals
-        [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAll()
-            => Ok(users);
 
-        // READ: GET api/animals/{id}
+        [HttpGet]
+        public ActionResult<IEnumerable<User>> GetAll() => Ok(users);
+
         [HttpGet("{id:guid}")]
         public ActionResult<User> GetOne(Guid id)
         {
@@ -26,7 +26,6 @@ namespace newCRUD.Controllers
                 : Ok(user);
         }
 
-        // CREATE: POST api/animals
         [HttpPost]
         public ActionResult<Animal> Create([FromBody] CreateUserDto dto)
         {
@@ -52,7 +51,7 @@ namespace newCRUD.Controllers
 
             var index = users.FindIndex(a => a.Id == id);
             if (index == -1)
-                return NotFound(new { error = "Animal not found", status = 404 });
+                return NotFound(new { error = "User not found", status = 404 });
 
             var updated = new User
             {
@@ -72,7 +71,7 @@ namespace newCRUD.Controllers
         {
             var removed = users.RemoveAll(a => a.Id == id);
             return removed == 0
-                ? NotFound(new { error = "Animal not found", status = 404 })
+                ? NotFound(new { error = "User not found", status = 404 })
                 : NoContent();
         }
     }
