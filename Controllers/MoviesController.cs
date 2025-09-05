@@ -19,7 +19,18 @@ namespace newCRUD.Controllers
         public ActionResult<IEnumerable<Movies>> GetAll()
             => Ok(_movies);
 
-       
+        // READ: GET api/movies/{id}
+        [HttpGet("{id:guid}")]
+        public ActionResult<Movies> GetOne(Guid id)
+        {
+            var movie = _movies.FirstOrDefault(a => a.Id == id);
+            return movie is null
+                ? NotFound(new { error = "Movie not found", status = 404 })
+                : Ok(movie);
+        }
+
+        
+
     }
 }
 
