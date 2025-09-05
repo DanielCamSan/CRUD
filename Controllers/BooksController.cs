@@ -7,10 +7,12 @@ namespace newCRUD.Controllers
     public class BooksController : ControllerBase
     {
         private static readonly List<Book> _books = new()
-            {
-                new Book { Id = Guid.NewGuid(), Title = "Orgullo y prejuicio", Author = "Jane Austen", Year = 1813 },
-                new Book { Id = Guid.NewGuid(), Title = "Cien años de soledad", Author = "Gabriel Garcia", Year = 1967 }
-            };
+        {
+            new Book { Id = Guid.NewGuid(), Title = "Cien años de soledad", Author = "Gabriel Garcia Marquez", Year = 1967 },
+            new Book { Id = Guid.NewGuid(), Title = "La casa de los espíritus", Author = "Isabel Allende", Year = 1982 },
+            new Book { Id = Guid.NewGuid(), Title = "La ciudad y los perros", Author = "Mario Vargas Llosa", Year = 1967 },
+            new Book { Id = Guid.NewGuid(), Title = "Orgullo y prejuicio", Author = "Jane Austen", Year = 1813 }
+        };
 
         // GET api/books
         [HttpGet]
@@ -48,6 +50,21 @@ namespace newCRUD.Controllers
             return Ok(book);
         }
 
+        // PATCH api/books/{id}
+        [HttpPatch("{id:guid}")]
+        public ActionResult<Book> Patch(Guid id, [FromBody] Book partial)
+        {
+            var book = _books.FirstOrDefault(b => b.Id == id);
+            if (book is null) return NotFound();
+
+            // Solo cambia si trae valor
+            if (!string.IsNullOrEmpty(partial.Author)) book.Author = partial.Author;
+            if (partial.Year != 0) book.Year = partial.Year;
+            if (!string.IsNullOrEmpty(partial.Title)) book.Title = partial.Title;
+
+            return Ok(book);
+        }
+
         // DELETE api/books/{id}
         [HttpDelete("{id:guid}")]
         public IActionResult Delete(Guid id)
@@ -55,5 +72,14 @@ namespace newCRUD.Controllers
             var removed = _books.RemoveAll(a => a.Id == id);
             return removed == 0 ? NotFound() : NoContent();
         }
+    }
+
+    // Modelo base
+    public class Book
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Author { get; set; } = string.Empty;
+        public int Year { get; set; }
     }
 }
