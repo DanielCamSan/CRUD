@@ -6,7 +6,7 @@ namespace newCRUD.Controllers
     [Route("api/[controller]")]
     public class BooksController : Controller
     {
-        private static readonly List<User> books = new()
+        private static readonly List<Book> books = new()
             {
                 new Book { id = Guid.NewGuid(), name = "pride and prejudice ", genre = "novel",edition=1 }, 
                 new Book { id = Guid.NewGuid(), name = "the hunger games", genre = "drama",edition=2 }
@@ -45,7 +45,7 @@ namespace newCRUD.Controllers
             books[index] = book;
             return Ok(book);
         }
-    // ATCH api/books/{id}
+    // PATCH api/books/{id}
         [HttpPatch("{id:guid}")]
         public ActionResult<Book> Patch(Guid Id, [FromBody] Book partial)
         {
@@ -57,5 +57,12 @@ namespace newCRUD.Controllers
             if (!string.IsNullOrEmpty(partial.genre)) book.genre = partial.genre;
             book.edition = partial.edition;
             return Ok(book);
+        }
+   // DELETE api/books/{id}
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = books.RemoveAll(a => a.id == Id);
+            return removed == 0 ? NotFound() : NoContent();
         }
     }
