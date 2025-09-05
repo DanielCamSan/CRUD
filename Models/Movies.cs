@@ -26,6 +26,16 @@ namespace newCRUD.Models
             [Range(1888, 2100)]
             public int Year { get; init; }
         }
+        public record UpdateMovieDto
+        {
+            [Required, StringLength(150)]
+            public string Title { get; init; } = string.Empty;
 
+            [Required, StringLength(60)]
+            public string Genre { get; init; } = string.Empty;
+
+            [Range(1888, 2100)]
+            public int Year { get; init; }
+        }
     }
 }
