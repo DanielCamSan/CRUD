@@ -8,25 +8,25 @@ public class Subscription
     public DateOnly SubscriptionDate { get; set; }
 
     [Required]
-    public int duration { get; set; }
+    public int Duration { get; set; }
 
     [Required, StringLength(100)]
-    public string name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     //DTOs
     public record CreateSubscriptionDto
     {
+        [Required, StringLength(100)]
+        public string Name { get; init; } = string.Empty;
         [Required]
-        public string name { get; init; } = string.Empty;
-        [Required]
-        public int duration { get; init; }
+        public int Duration { get; init; }
     }
 
     public record UpdateSubscriptionDto
     {
+        [Required, StringLength(100)]
+        public string Name { get; init; } = string.Empty;
         [Required]
-        public string name { get; init; } = string.Empty;
-        [Required]
-        public int duration { get; init; }
+        public int Duration { get; init; }
     }
 }
