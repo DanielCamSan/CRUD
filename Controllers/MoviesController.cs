@@ -46,7 +46,28 @@ namespace newCRUD.Controllers
             return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie);
         }
 
-        
+        // UPDATE (full): PUT api/movies/{id}
+        [HttpPut("{id:guid}")]
+        public ActionResult<Animal> Update(Guid id, [FromBody] UpdateMovieDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var index = _movies.FindIndex(a => a.Id == id);
+            if (index == -1)
+                return NotFound(new { error = "Movie not found", status = 404 });
+
+            var updated = new Movies
+            {
+                Id = id,
+                Title = dto.Title.Trim(),
+                Gender = dto.Gender.Trim(),
+                Year = dto.Year
+            };
+
+            _movies[index] = updated;
+            return Ok(updated);
+        }
+
 
 
     }
