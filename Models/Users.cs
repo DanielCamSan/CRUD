@@ -33,3 +33,17 @@ public record CreateUserDto
     [Required, StringLength(128)]
     public string password { get; init; } = "";
 }
+public record UpdateUserDto
+{
+    [Required, StringLength(100)]
+    public string Name { get; init; } = string.Empty;
+
+    [Range(0, 100)]
+    public int Age { get; init; }
+
+    [Required, EmailAddress]
+    public string email { get; init; } = string.Empty;
+    
+    [Required, StringLength(128)]
+    public string password { get; init; } = "";
+}
