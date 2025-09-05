@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace newCRUD.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class LoansController : ControllerBase
+    {
+        private static readonly List<Loan> _loans = new()
+            {
+                new Loan { Id = Guid.NewGuid(), Book = "Bible",User = "Carlos", Date = 02112025 },
+                new Loan { Id = Guid.NewGuid(), Book = "Comedy",User = "Pedro", Date = 22012025  }
+            };
+
+    }
+}
