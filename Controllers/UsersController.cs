@@ -3,7 +3,7 @@
 namespace newCRUD.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
         private static readonly List<User> _animals = new()
