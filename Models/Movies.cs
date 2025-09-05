@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 public class Movies
 {
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required, StringLength(100)]
     public string Title { get; set; } = string.Empty;
