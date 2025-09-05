@@ -21,4 +21,12 @@ public class Subscription
         [Required]
         public int duration { get; init; }
     }
+
+    public record UpdateSubscriptionDto
+    {
+        [Required]
+        public string name { get; init; } = string.Empty;
+        [Required]
+        public int duration { get; init; }
+    }
 }
