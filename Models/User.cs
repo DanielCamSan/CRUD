@@ -11,10 +11,10 @@ public class User
     public int Age { get; set; }
 
     [Required, StringLength(100)]
-    public string email { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     [Required, StringLength(30)]
-    public string password { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }
 
 // DTOs (entrada/salida para la API)
@@ -26,10 +26,10 @@ public record CreateUserDto
     public int Age { get; init; }
 
     [Required, StringLength(100)]
-    public string email { get; init; } = string.Empty;
+    public string Email { get; init; } = string.Empty;
 
     [Required, StringLength(30)]
-    public string password { get; init; } = string.Empty;
+    public string Password { get; init; } = string.Empty;
 }
 
 public record UpdateUserDto
@@ -40,8 +40,8 @@ public record UpdateUserDto
     public int Age { get; init; }
 
     [Required, StringLength(100)]
-    public string email { get; init; } = string.Empty;
+    public string Email { get; init; } = string.Empty;
 
     [Required, StringLength(30)]
-    public string password { get; init; } = string.Empty;
+    public string Password { get; init; } = string.Empty;
 }
