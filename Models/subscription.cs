@@ -29,3 +29,14 @@ public record CreateSubscriptionDto
     public DateTime date { get; init; }
 }
 
+public record UpdateSubscription
+{
+    [Required, StringLength(100)]
+    public string name { get; init; } = string.Empty;
+
+    [Required, Range(1, 31)]
+    public int duracion { get; init; }
+
+    [Required, StringLength(100)]
+    public DateTime date { get; init; }
+}
