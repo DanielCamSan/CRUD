@@ -46,5 +46,36 @@ namespace newCRUD.Controllers
             // 201 Created + Location header
             return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie);
         }
+        // UPDATE (full): PUT api/movies/{id}
+        [HttpPut("{id:guid}")]
+        public ActionResult<Movie> Update(Guid id, [FromBody] UpdateMovieDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var index = _movies.FindIndex(m => m.Id == id);
+            if (index == -1)
+                return NotFound(new { error = "Movie not found", status = 404 });
+
+            var updated = new Movie
+            {
+                Id = id,
+                Title = dto.Title.Trim(),
+                Genre = dto.Genre.Trim(),
+                Year = dto.Year
+            };
+
+            _movies[index] = updated;
+            return Ok(updated);
+        }
+
+        // DELETE: DELETE api/movies/{id}
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = _movies.RemoveAll(m => m.Id == id);
+            return removed == 0
+                ? NotFound(new { error = "Movie not found", status = 404 })
+                : NoContent();
+        }
     }
 }
