@@ -12,4 +12,13 @@ public class Subscription
 
     [Required, StringLength(100)]
     public string name { get; set; } = string.Empty;
+
+    //DTOs
+    public record CreateSubscriptionDto
+    {
+        [Required]
+        public string name { get; init; } = string.Empty;
+        [Required]
+        public int duration { get; init; }
+    }
 }
