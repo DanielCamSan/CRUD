@@ -27,5 +27,15 @@ namespace newCRUD.Controllers
             var loan = loans.FirstOrDefault(l => l.Id == id);
             return loan is null ? NotFound() : Ok(loan);
         }
+
+        //POST api/loan
+        [HttpPost]
+        public ActionResult<Loan> Create([FromBody]Loan loan)
+        {
+            loan.Id = Guid.NewGuid();
+            loans.Add(loan);
+            return CreatedAtAction(nameof(GetOne), new { id = loan.Id }, loan);
+        }
+
     }
 }
