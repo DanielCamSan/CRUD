@@ -15,5 +15,5 @@ All of them have their own model and controllers
 - Delete
 ---
 ## Authors
-Nicole Lorena Herbas Claure
+Nicole Lorena Herbas Claure,
 Hassan Lopez Olivares
