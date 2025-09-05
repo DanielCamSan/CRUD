@@ -33,4 +33,16 @@ namespace newCRUD.Controllers
             books.Add(book);
             return CreatedAtAction(nameof(GetOne), new { id = book.Id }, book); 
         }
+    // PUT api/books/{id}
+        [HttpPut("{id:guid}")]
+        public ActionResult<Book> Update(Guid Id, [FromBody] Book book)
+        {
+            var index = books.FindIndex(a => a.id == Id);
+            if (index == -1) 
+            return NotFound();
+
+            books.Id = id;
+            books[index] = book;
+            return Ok(book);
+        }
     }
