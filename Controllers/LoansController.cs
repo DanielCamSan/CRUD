@@ -37,5 +37,18 @@ namespace newCRUD.Controllers
             return CreatedAtAction(nameof(GetOne), new { id = loan.Id }, loan);
         }
 
+        //PUT api/loan/{id}
+        [HttpPut("{id:guid}")]
+        public ActionResult<Loan> Update(Guid id, [FromBody] Loan loan) 
+        {
+            var index = loans.FindIndex(a => a.Id == id);
+            if (index == -1) return NotFound();
+
+            loan.Id = id;
+            loans[index] = loan;
+            return Ok(loan);
+        }
+
+
     }
 }
