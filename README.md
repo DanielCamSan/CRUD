@@ -14,3 +14,6 @@ All of them have their own model and controllers
 - Patch
 - Delete
 ---
+## Authors
+Nicole Lorena Herbas Claure
+Hassan Lopez Olivares
