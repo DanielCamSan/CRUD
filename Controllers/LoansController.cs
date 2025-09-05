@@ -43,8 +43,21 @@ namespace newCRUD.Controllers
             _loans[index] = loan;
             return Ok(loan);
         }
+        [HttpPatch("{id:guid}")]
+        public ActionResult<Loan> Patch(Guid id, [FromBody] Loan partial)
+        {
+            var loan = _loans.FirstOrDefault(a => a.Id == id);
+            if (loan is null) return NotFound();
+
+            if (!string.IsNullOrEmpty(partial.Book)) loan.Book = partial.Book;
+            if (partial.Date > 0) loan.Date = partial.Date;
+
+            return Ok(loan);
+        }
 
         
+
+
 
 
     }
