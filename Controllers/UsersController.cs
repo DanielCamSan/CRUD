@@ -66,7 +66,15 @@ namespace newCRUD.Controllers
             _users[index] = updated;
             return Ok(updated);
         }
-
+     
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = _users.RemoveAll(a => a.Id == id);
+            return removed == 0
+                ? NotFound(new { error = "User not found", status = 404 })
+                : NoContent();
+        }
 
     }
 }
