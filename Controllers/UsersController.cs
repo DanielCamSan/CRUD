@@ -8,8 +8,8 @@ namespace newCRUD.Controllers
     {
         private static readonly List<User> users = new()
             {
-                new User { Id = Guid.NewGuid(), Username = "dahbner", Age = 19 },
-                new User { Id = Guid.NewGuid(), Username = "andy.andrade", Age = 20 }
+                new User { Id = Guid.NewGuid(), Username = "dahbner", Age = 19},
+                new User { Id = Guid.NewGuid(), Username = "andy.andrade", Age = 20}
             };
         // GET api/users
         [HttpGet]

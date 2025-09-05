@@ -1,4 +1,4 @@
-﻿   public class books
+﻿   public class Book   
     {
 
     public Guid id { get; set; }
