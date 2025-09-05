@@ -17,7 +17,7 @@ namespace newCRUD.Controllers
         {
             return Ok(_movies);
         }
-        /*
+        
         [HttpGet("{id:guid}")]
         public ActionResult<Movie> GetOne(Guid id)
         {
@@ -27,6 +27,7 @@ namespace newCRUD.Controllers
                 : Ok(movie);
         }
 
+        /*
         [HttpPost]
         public ActionResult<Animal> Create([FromBody] CreateMovieDto dto)
         {
