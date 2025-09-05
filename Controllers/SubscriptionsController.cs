@@ -35,7 +35,7 @@ namespace SubscriptionsCRUD.Controller
             {
                 Id = Guid.NewGuid(),
                 name = dto.name.Trim(),
-                subscription_date = new DateOnly(dto.subscription_date.Year, dto.subscription_date.Month, dto.subscription_date.Day), 
+                subscription_date = new DateOnly(dto.subscription_date.Year, dto.subscription_date.Month, dto.subscription_date.Day),
                 duration = dto.duration
             };
             return CreatedAtAction(nameof(GetOne), new { id = subscrip.Id }, subscrip);
@@ -54,13 +54,21 @@ namespace SubscriptionsCRUD.Controller
             var updated = new Subscription
             {
                 Id = id,
-                name = dto.new_name, 
-                subscription_date = new DateOnly(dto.new_subscription_date.Year, dto.new_subscription_date.Month, dto.new_subscription_date.Day), 
+                name = dto.new_name,
+                subscription_date = new DateOnly(dto.new_subscription_date.Year, dto.new_subscription_date.Month, dto.new_subscription_date.Day),
                 duration = dto.new_duration
             };
 
             _subscriptions[index] = updated;
             return Ok(updated);
+        }
+
+        // DELETE api/subcriptions/{id}
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = _subscriptions.RemoveAll(a => a.Id == id);
+            return removed == 0 ? NotFound(new { error = "Subcription not found", status = 404 }) : NoContent();
         }
         
     }
