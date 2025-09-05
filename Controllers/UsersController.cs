@@ -26,5 +26,13 @@ namespace newCRUD.Controllers
             return user is null ? NotFound() : Ok(user);
         }
 
+        // POST api/users
+        [HttpPost]
+        public ActionResult<User> Create([FromBody] User user)
+        {
+            user.Id = Guid.NewGuid();
+            users.Add(user);
+            return CreatedAtAction(nameof(GetOne), new { id = user.Id }, user);
+        }
     }
 }
