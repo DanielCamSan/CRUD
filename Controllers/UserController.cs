@@ -13,8 +13,12 @@ namespace newCRUD.Controllers
         {
             private static readonly List<User> _Users = new()
         {
-            new User { Id = Guid.NewGuid(), Name = "Luna", Email = "LunaIsHere.@gmail.com",Password = "MyBirthday", Age = 3 },
-            new User { Id = Guid.NewGuid(), Name = "Mishel",Email = "Mishigato123.@gmail.com",Password = "Password1234", Age = 2 }
+            new User { Id = Guid.NewGuid(), Name = "Luna", Email = "LunaIsHere.@gmail.com",Password = "MyBirthday", Age = 63 },
+            new User { Id = Guid.NewGuid(), Name = "Mishel",Email = "Mishigato123.@gmail.com",Password = "Password1234", Age = 28 }
+            new User { Id = Guid.NewGuid(), Name = "Gaylord", Email = "Gaylord.@gmail.com",Password = "Hello-World", Age = 33 },
+            new User { Id = Guid.NewGuid(), Name = "David",Email = "David.@gmail.com",Password = "Holakhease", Age = 62 }
+            new User { Id = Guid.NewGuid(), Name = "Goliath", Email = "Goliath.@gmail.com",Password = "12345678", Age = 31 },
+            new User { Id = Guid.NewGuid(), Name = "True",Email = "True.@gmail.com",Password = "Noquiero", Age = 32 }
         };
 
             // READ: GET api/animals
