@@ -25,6 +25,14 @@ namespace newCRUD.Controllers
             return loan is null ? NotFound() : Ok(loan);
         }
 
+        [HttpPost]
+        public ActionResult<User> Create([FromBody] Loan loan)
+        {
+            loan.Id = Guid.NewGuid();
+            _loans.Add(loan);
+            return CreatedAtAction(nameof(GetOne), new { id = loan.Id }, loan);
+        }
+
 
 
     }
