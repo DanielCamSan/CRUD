@@ -1,3 +1,52 @@
+# User's  API:
+An ASP.NET Core Web API for managing user records. This project demonstrates full CRUD functionality using an in-memory data store, with a focus on clarity and simplicity.
+##  Features
+
+- Create, Read, Update, Patch, and Delete user records
+- Auto-generated GUIDs for user IDs
+- Partial updates via HTTP PATCH
+- RESTful routing with attribute-based controllers
+- In-memory data storage using `List<User>`
+
+---
+
+##  User Model
+
+```csharp
+public class User
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+}
+```
+Method  | Endpoint              | Description
+--------|-----------------------|----------------------------------
+GET     | /api/users            | Retrieve all users
+GET     | /api/users/{id}       | Retrieve a specific user by ID
+POST    | /api/users            | Create a new user
+PUT     | /api/users/{id}       | Replace an existing user
+PATCH   | /api/users/{id}       | Partially update a user
+DELETE  | /api/users/{id}       | Delete a user
+## Endpoint Requirements Overview
+Method  | Endpoint              | Requires Body | Body Format
+--------|-----------------------|---------------|--------------------------------------------------
+GET     | /api/users            | No            | —
+GET     | /api/users/{id}       | No            | —
+POST    | /api/users            | Yes           | { "name": "John Doe", "email": "john@example.com" }
+PUT     | /api/users/{id}       | Yes           | {"name": "Updated Name", "email": "updated@example.com"}
+PATCH   | /api/users/{id}       | Yes           | {"name": "Optional New Name", "email": "Optional New Email"}
+DELETE  | /api/users/{id}       | No            | —
+## Notes
+- User ID (Id) is automatically generated as a Guid when a new user is created via POST. Clients should not provide it manually.
+- Data is stored in-memory using List<User>, meaning all user records are lost when the application restarts.
+- PUT requests must include both Name and Email. The entire user object is replaced.
+- PATCH requests only update fields that are explicitly provided and non-empty:
+        Name must be a non-empty string.
+        Email must be a non-empty string.
+- GET and DELETE endpoints do not require a request body. They operate solely based on the id parameter in the URL.
+
+
 # Loan Management API:
 
 A minimalistic ASP.NET Core Web API for managing book loans. Built with clarity and modularity in mind, this project demonstrates full CRUD functionality using an in-memory data store.
