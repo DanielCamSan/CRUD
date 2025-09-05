@@ -59,5 +59,13 @@ namespace newCRUD.Controllers
             _movies[index] = updated;
             return Ok(updated);
         }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = _movies.RemoveAll(m => m.Id == id);
+            return removed == 0 ? NotFound(new { error = "Movie not found", status = 404 }) : NoContent();
+        }
+
     }
 }
