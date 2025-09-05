@@ -12,5 +12,13 @@ namespace newCRUD.Controllers
                 new Loan { Id = Guid.NewGuid(), Book = "Comedy",User = "Pedro", Date = 22012025  }
             };
 
+        [HttpGet]
+        public ActionResult<IEnumerable<Loan>> GetAll()
+        {
+            return Ok(_loans);
+        }
+
+
     }
+    
 }
