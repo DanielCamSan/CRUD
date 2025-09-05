@@ -9,8 +9,41 @@ public class User
     public string Name { get; set; } = string.Empty;
 
     [Required, StringLength(50)]
-    public EmailAddressAttribute Email { get; set; }
+    required public EmailAddressAttribute Email { get; set; }
+
+    [Required, StringLength(50)]
+    required public string Password { get; set; }
 
     [Range(0, 100)]
     public int Age { get; set; }
+}
+// DTOs (entrada/salida para la API)
+public record CreateAnimalDto
+{
+    [Required, StringLength(100)]
+    public string Name { get; set; } = string.Empty;
+
+    [Required, StringLength(50)]
+    required public EmailAddressAttribute Email { get; set; }
+
+    [Required, StringLength(50)]
+    required public string Password { get; set; }
+
+    [Range(0, 100)]
+    public int Age { get; set; }
+
+    public record UpdateAnimalDto
+    {
+        [Required, StringLength(100)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, StringLength(50)]
+        required public EmailAddressAttribute Email { get; set; }
+
+        [Required, StringLength(50)]
+        required public string Password { get; set; }
+
+        [Range(0, 100)]
+        public int Age { get; set; }
+    }
 }
