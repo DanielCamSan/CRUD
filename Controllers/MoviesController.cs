@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace newCRUD.Controllers;
-
+namespace newCRUD.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -43,7 +42,7 @@ namespace newCRUD.Controllers;
             };
 
             movies.Add(Movie);
-            return CreatedAtAction(titleof(GetOne), new { id = Movie.Id }, Movie);
+            return CreatedAtAction(nameof(GetOne), new { id = Movie.Id }, Movie);
         }
 
         // UPDATE (full): PUT api/Movies/{id}
