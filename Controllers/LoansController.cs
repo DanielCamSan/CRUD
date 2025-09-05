@@ -26,13 +26,25 @@ namespace newCRUD.Controllers
         }
 
         [HttpPost]
-        public ActionResult<User> Create([FromBody] Loan loan)
+        public ActionResult<Loan> Create([FromBody] Loan loan)
         {
             loan.Id = Guid.NewGuid();
             _loans.Add(loan);
             return CreatedAtAction(nameof(GetOne), new { id = loan.Id }, loan);
         }
 
+        [HttpPut("{id:guid}")]
+        public ActionResult<Loan> Update(Guid id, [FromBody] Loan loan)
+        {
+            var index = _loans.FindIndex(a => a.Id == id);
+            if (index == -1) return NotFound();
+
+            loan.Id = id;
+            _loans[index] = loan;
+            return Ok(loan);
+        }
+
+        
 
 
     }
