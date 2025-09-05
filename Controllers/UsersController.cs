@@ -1,0 +1,68 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace newCRUD.Controllers
+{
+
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
+    {
+        private static readonly List<Users> users = new()
+        {
+            new Users { Id = Guid.NewGuid(), Name = "Juan", Edad = 25 },
+            new Users { Id = Guid.NewGuid(), Name = "Maria", Edad = 30 }
+        };
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Users>> GetAll()
+        {
+            return Ok(users);
+        }
+        [HttpGet("{id:guid}")]
+
+        public ActionResult<Users> GetOne(Guid id)
+        {
+            var user = users.FirstOrDefault(u => u.Id == id);
+            return user is null ? NotFound() : Ok(user);
+        }
+        [HttpPost]
+        public ActionResult<Users> Create(Users newUser)
+        {
+            newUser.Id = Guid.NewGuid();
+            users.Add(newUser);
+            return CreatedAtAction(nameof(GetOne), new { id = newUser.Id }, newUser);
+        }
+
+        [HttpPut("{id:guid}")]
+        public ActionResult<Users> Update(Guid id, Users updatedUser)
+        {
+            var index = users.FindIndex(u => u.Id == id);
+            if (index == -1) return NotFound();
+            updatedUser.Id = id; // conservar el mismo Id
+            users[index] = updatedUser;
+            return Ok(updatedUser);
+        }
+
+        [HttpPatch("{id:guid}")]
+        public ActionResult<Users> Patch(Guid id, Users partialUser)
+        {
+            var user = users.FirstOrDefault(u => u.Id == id);
+            if (user is null) return NotFound();
+            // solo cambia si trae valor
+            if (!string.IsNullOrEmpty(partialUser.Name)) user.Name = partialUser.Name;
+            if (partialUser.Edad != 0) user.Edad = partialUser.Edad;
+            return Ok(user);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removeUser = users.RemoveAll(u => u.Id == id);
+            return removeUser == 0 ? NotFound() : NoContent();
+        }
+
+    }
+}
+
+
+    
