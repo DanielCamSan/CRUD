@@ -40,5 +40,24 @@ namespace newCRUD.Controllers
             _movies.Add(movie);
             return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie);
         }
+        [HttpPut("{id:guid}")]
+        public ActionResult<Movie> Update(Guid id, [FromBody] UpdateMovieDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var index = _movies.FindIndex(m => m.Id == id);
+            if (index == -1) return NotFound(new { error = "Movie not found", status = 404 });
+
+            var updated = new Movie
+            {
+                Id = id,
+                Title = dto.Title.Trim(),
+                Genre = dto.Genre.Trim(),
+                Year = dto.Year
+            };
+
+            _movies[index] = updated;
+            return Ok(updated);
+        }
     }
 }
