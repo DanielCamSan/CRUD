@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc; 
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace newCRUD.Controllers
 {
-    [ApiController] 
+    [ApiController]
     [Route("api/[controller]")]
     public class MoviesController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace newCRUD.Controllers
         {
             return Ok(_movies);
         }
-        
+
         [HttpGet("{id:guid}")]
         public ActionResult<Movie> GetOne(Guid id)
         {
@@ -27,7 +27,7 @@ namespace newCRUD.Controllers
                 : Ok(movie);
         }
 
-        /*
+
         [HttpPost]
         public ActionResult<Animal> Create([FromBody] CreateMovieDto dto)
         {
@@ -67,8 +67,15 @@ namespace newCRUD.Controllers
             return Ok(updated);
         }
 
-        */
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = _movies.RemoveAll(a => a.Id == id);
+            return removed == 0
+                ? NotFound(new { error = "Movie not found", status = 404 })
+                : NoContent();
+
+        }
 
     }
-        
 }
