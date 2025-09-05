@@ -14,7 +14,7 @@ public class Movie
     public int Year { get; set; }
 }
 // DTOs (entrada/salida para la API)
-public record CreateAnimalDto
+public record CreateMovieDto
 {
     [Required, StringLength(200)]
     public string Title { get; init; } = string.Empty;
@@ -26,7 +26,7 @@ public record CreateAnimalDto
     public int Year { get; init; }
 }
 
-public record UpdateAnimalDto
+public record UpdateMovieDto
 {
     [Required, StringLength(200)]
     public string Title { get; init; } = string.Empty;
