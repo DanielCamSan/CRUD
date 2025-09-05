@@ -28,8 +28,26 @@ namespace newCRUD.Controllers
                 ? NotFound(new { error = "Movie not found", status = 404 })
                 : Ok(movie);
         }
+        // CREATE: POST api/movies
+        [HttpPost]
+        public ActionResult<Animal> Create([FromBody] CreateMovieDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var movie = new Movies
+            {
+                Id = Guid.NewGuid(),
+                Title = dto.Title.Trim(),
+                Gender = dto.Gender.Trim(),
+                Year = dto.Year
+            };
+
+            _movies.Add(movie);
+            return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie);
+        }
 
         
+
 
     }
 }
