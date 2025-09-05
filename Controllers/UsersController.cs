@@ -14,6 +14,7 @@ namespace newCRUD.Controllers
 
         // READ: GET api/Users
         [HttpGet]
+
         public ActionResult<IEnumerable<User>> GetAll()
         => Ok(User);
 
