@@ -18,6 +18,14 @@ namespace newCRUD.Controllers
             return Ok(_loans);
         }
 
+        [HttpGet("{id:guid}")]
+        public ActionResult<Loan> GetOne(Guid id)
+        {
+            var loan = _loans.FirstOrDefault(a => a.Id == id);
+            return loan is null ? NotFound() : Ok(loan);
+        }
+
+
 
     }
     
