@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using newCRUD.Models;
+using static newCRUD.Models.Movie;
 
 namespace newCRUD.Controllers
 {
@@ -22,6 +23,22 @@ namespace newCRUD.Controllers
         {
             var movie = _movies.FirstOrDefault(m => m.Id == id);
             return movie is null ? NotFound(new { error = "Movie not found", status = 404 }) : Ok(movie);
+        }
+        [HttpPost]
+        public ActionResult<Movie> Create([FromBody] CreateMovieDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var movie = new Movie
+            {
+                Id = Guid.NewGuid(),
+                Title = dto.Title.Trim(),
+                Genre = dto.Genre.Trim(),
+                Year = dto.Year
+            };
+
+            _movies.Add(movie);
+            return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie);
         }
     }
 }
