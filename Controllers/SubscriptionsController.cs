@@ -26,5 +26,55 @@ namespace newCRUD.Controllers
                 ? NotFound(new { error = "Subscription not found", status = 404 })
                 : Ok(sub);
         }
+
+        // CREATE: POST api/subscriptions
+        [HttpPost]
+        public ActionResult<Subscription> Create([FromBody] CreateSubscriptionDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var entity = new Subscription
+            {
+                Id = Guid.NewGuid(),
+                Name = dto.Name.Trim(),
+                Duration = dto.Duration,
+                SubscriptionDate = dto.SubscriptionDate
+            };
+
+            _subscriptions.Add(entity);
+            return CreatedAtAction(nameof(GetOne), new { id = entity.Id }, entity);
+        }
+
+        // UPDATE (full): PUT api/subscriptions/{id}
+        [HttpPut("{id:guid}")]
+        public ActionResult<Subscription> Update(Guid id, [FromBody] UpdateSubscriptionDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var index = _subscriptions.FindIndex(s => s.Id == id);
+            if (index == -1)
+                return NotFound(new { error = "Subscription not found", status = 404 });
+
+            var updated = new Subscription
+            {
+                Id = id,
+                Name = dto.Name.Trim(),
+                Duration = dto.Duration,
+                SubscriptionDate = dto.SubscriptionDate
+            };
+
+            _subscriptions[index] = updated;
+            return Ok(updated);
+        }
+
+        // DELETE: DELETE api/subscriptions/{id}
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = _subscriptions.RemoveAll(s => s.Id == id);
+            return removed == 0
+                ? NotFound(new { error = "Subscription not found", status = 404 })
+                : NoContent();
+        }
     }
 }
