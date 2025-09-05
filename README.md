@@ -1,57 +1,130 @@
-# API de Libros - Team 06
+# CRUD API - Team 06
 
-Endpoints para el manejo de libros en el sistema CRUD.
+This API provides endpoints for CRUD operations on Books, Users, and Loans.
 
-## Tabla de Endpoints
+## Complete Endpoints Table
 
-| Método | Endpoint | Descripción | Parámetros |
-|--------|----------|-------------|------------|
-| **GET** | `/api/libros` | Obtener todos los libros | - |
-| **GET** | `/api/libros/{id}` | Obtener libro por ID | `id` (Guid) |
-| **POST** | `/api/libros` | Crear nuevo libro | JSON en body |
-| **PUT** | `/api/libros/{id}` | Actualizar libro completo | `id` + JSON en body |
-| **PATCH** | `/api/libros/{id}` | Actualizar libro parcial | `id` + JSON en body |
-| **DELETE** | `/api/libmos/{id}` | Eliminar libro | `id` (Guid) |
+### 📚 Books Controller
 
-## Ejemplo de Body Request
+| Method | Endpoint | Description | Body Request |
+|--------|----------|-------------|--------------|
+| **GET** | `api/books` | Get all books | - |
+| **GET** | `api/books/{id}` | Get one book by ID | - |
+| **POST** | `api/books` | Create new book | `{ "title": "string", "author": "string", "year": number, "genre": "string" }` |
+| **PUT** | `api/books/{id}` | Update full book | `{ "title": "string", "author": "string", "year": number, "genre": "string" }` |
+| **PATCH** | `api/books/{id}` | Update partial book | `{ "title": "string?", "author": "string?", "year": number?, "genre": "string?" }` |
+| **DELETE** | `api/books/{id}` | Delete book | - |
 
-```json
+### 👥 Users Controller
+
+| Method | Endpoint | Description | Body Request |
+|--------|----------|-------------|--------------|
+| **GET** | `api/users` | Get all users | - |
+| **GET** | `api/users/{id}` | Get one user by ID | - |
+| **POST** | `api/users` | Create new user | `{ "name": "string", "age": number }` |
+| **PUT** | `api/users/{id}` | Update full user | `{ "name": "string", "age": number }` |
+| **PATCH** | `api/users/{id}` | Update partial user | `{ "name": "string?", "age": number? }` |
+| **DELETE** | `api/users/{id}` | Delete user | - |
+
+### 📋 Loans Controller
+
+| Method | Endpoint | Description | Body Request |
+|--------|----------|-------------|--------------|
+| **GET** | `api/loans` | Get all loans | - |
+| **GET** | `api/loans/{id}` | Get one loan by ID | - |
+| **POST** | `api/loans` | Create new loan | `{ "bookId": "Guid", "userId": "Guid" }` |
+| **PUT** | `api/loans/{id}` | Update full loan | `{ "bookId": "Guid", "userId": "Guid", "loanDate": "DateTime", "returnDate": "DateTime?" }` |
+| **DELETE** | `api/loans/{id}` | Delete loan | - |
+
+## Data Models
+
+### Book Model
+```csharp
+public class Book
 {
-  "titulo": "Nombre del libro",
-  "autor": "Nombre del autor", 
-  "añoPublicacion": 2023,
-  "genero": "Género literario"
+    public Guid Id { get; set; }
+    public string Title { get; set; } = "";
+    public string Author { get; set; } = "";
+    public int Year { get; set; }
+    public string Genre { get; set; } = "";
 }
 ```
 
-## Ejemplos de uso
-
-### Obtener todos los libros
-```http
-GET /api/libros
+### User Model
+```csharp
+public class User
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = "";
+    public int Age { get; set; }
+}
 ```
 
-### Crear un libro
+### Loan Model
+```csharp
+public class Loan
+{
+    public Guid Id { get; set; }
+    public Guid BookId { get; set; }
+    public Guid UserId { get; set; }
+    public DateTime LoanDate { get; set; }
+    public DateTime? ReturnDate { get; set; }
+}
+```
+
+## Usage Examples
+
+### Create a Book
 ```http
-POST /api/libros
+POST /api/books
 Content-Type: application/json
 
 {
-  "titulo": "Cien años de soledad",
-  "autor": "Gabriel García Márquez",
-  "añoPublicacion": 1967,
-  "genero": "Realismo mágico"
+  "title": "One Hundred Years of Solitude",
+  "author": "Gabriel García Márquez",
+  "year": 1967,
+  "genre": "Magic realism"
 }
 ```
 
-### Modelo de datos
-```csharp
-public class Libro
+### Create a User
+```http
+POST /api/users
+Content-Type: application/json
+
 {
-    public Guid Id { get; set; }
-    public string Titulo { get; set; } = "";
-    public string Autor { get; set; } = "";
-    public int AñoPublicacion { get; set; }
-    public string Genero { get; set; } = "";
+  "name": "John Doe",
+  "age": 25
 }
 ```
+
+### Create a Loan
+```http
+POST /api/loans
+Content-Type: application/json
+
+{
+  "bookId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa7"
+}
+```
+
+### Get All Books
+```http
+GET /api/books
+```
+
+### Get User by ID
+```http
+GET /api/users/3fa85f64-5717-4562-b3fc-2c963f66afa6
+```
+
+## Important Notes
+
+- All IDs are GUID type
+- PATCH endpoints update only provided fields
+- Loans are created with current date automatically
+- ReturnDate field in loans is optional (can be null)
+
+## Development Team
+- Team 06 Members
