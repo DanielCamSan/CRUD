@@ -69,6 +69,6 @@ namespace newCRUD.Controllers
         {
             var removed = _animals.RemoveAll(a => a.Id == id);
             return removed == 0 ? NotFound() : NoContent();
-        }
+        } 
     }
 }
