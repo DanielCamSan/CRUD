@@ -8,8 +8,8 @@ namespace newCRUD.Controllers
     {
         private static readonly List<User> books = new()
             {
-                new Book { Id = Guid.NewGuid(), name = "pride and prejudice ", genre = "novel",edition=1 }, 
-                new Book { Id = Guid.NewGuid(), name = "the hunger games", genre = "drama",edition=2 }
+                new Book { id = Guid.NewGuid(), name = "pride and prejudice ", genre = "novel",edition=1 }, 
+                new Book { id = Guid.NewGuid(), name = "the hunger games", genre = "drama",edition=2 }
             };
     }
      // GET api/books
@@ -29,7 +29,7 @@ namespace newCRUD.Controllers
         [HttpPost]
         public ActionResult<Book> Create([FromBody] Book book)
         {
-            book.Id = Guid.NewGuid();
+            book.id = Guid.NewGuid();
             books.Add(book);
             return CreatedAtAction(nameof(GetOne), new { id = book.Id }, book); 
         }
@@ -41,8 +41,21 @@ namespace newCRUD.Controllers
             if (index == -1) 
             return NotFound();
 
-            books.Id = id;
+            books.id = Id;
             books[index] = book;
+            return Ok(book);
+        }
+    // ATCH api/books/{id}
+        [HttpPatch("{id:guid}")]
+        public ActionResult<Book> Patch(Guid Id, [FromBody] Book partial)
+        {
+            var book = books.FirstOrDefault(a => a.id == Id);
+            if (book is null) return NotFound();
+
+            // solo cambia si trae valor
+            if (!string.IsNullOrEmpty(partial.name)) book.name = partial.name;
+            if (!string.IsNullOrEmpty(partial.genre)) book.genre = partial.genre;
+            book.edition = partial.edition;
             return Ok(book);
         }
     }
