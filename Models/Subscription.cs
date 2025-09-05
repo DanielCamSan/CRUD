@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.Marshalling;
 
 public class Subscription
 {
@@ -27,3 +28,11 @@ public record createSubscriptionDto
     public int duration { get; init; }
 }
 
+public record updateSubscriptionDto
+{
+    [Required]
+    public DateOnly new_subscription_date { get; init; }
+
+    [Required,Range(1,60)]
+    public int new_duration { get; init; }
+}
