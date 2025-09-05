@@ -18,7 +18,7 @@ public class User
     public int Age { get; set; }
 }
 // DTOs (entrada/salida para la API)
-public record CreateAnimalDto
+public record CreateUserlDto
 {
     [Required, StringLength(100)]
     public string Name { get; set; } = string.Empty;
