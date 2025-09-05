@@ -30,6 +30,9 @@ public record createSubscriptionDto
 
 public record updateSubscriptionDto
 {
+    [Required, StringLength(50)]
+    public string new_name { get; init; } = string.Empty;
+
     [Required]
     public DateOnly new_subscription_date { get; init; }
 

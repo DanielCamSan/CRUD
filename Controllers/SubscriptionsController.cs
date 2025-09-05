@@ -54,6 +54,7 @@ namespace SubscriptionsCRUD.Controller
             var updated = new Subscription
             {
                 Id = id,
+                name = dto.new_name, 
                 subscription_date = new DateOnly(dto.new_subscription_date.Year, dto.new_subscription_date.Month, dto.new_subscription_date.Day), 
                 duration = dto.new_duration
             };
