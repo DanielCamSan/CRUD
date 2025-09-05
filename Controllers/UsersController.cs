@@ -4,7 +4,7 @@ namespace newCRUD.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private static readonly List<User> users = new()
             {
@@ -18,12 +18,13 @@ namespace newCRUD.Controllers
             return Ok(users);
         }
 
-        // GET api/animals/{id}
+        // GET api/users/{id}
         [HttpGet("{id:guid}")]
         public ActionResult<User> GetOne(Guid id)
         {
             var user = users.FirstOrDefault(a => a.Id == id);
             return user is null ? NotFound() : Ok(user);
         }
+
     }
 }
