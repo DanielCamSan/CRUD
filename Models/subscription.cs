@@ -16,4 +16,16 @@ using System.ComponentModel.DataAnnotations;
 
     }
 
+///DTOs
+public record CreateSubscriptionDto
+{
+    [Required, StringLength(100)]
+    public string name { get; init; } = string.Empty;
+
+    [Required, Range(1, 31)]
+    public int duracion { get; init; }
+
+    [Required, StringLength(100)]
+    public DateTime date { get; init; }
+}
 
