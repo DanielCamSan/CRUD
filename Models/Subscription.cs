@@ -12,7 +12,7 @@ public class Subscription
     public int duration { get; set; }
 
     [Required, StringLength(20)]
-    public string Date { get; set; } = string.Empty;
+    public string subcription_date { get; set; } = string.Empty;
 
    
 }
@@ -26,7 +26,7 @@ public record CreateSubscriptionDto
     public int duration { get; init; }
 
     [Required, StringLength(20)]
-    public string Date { get; init; } = string.Empty;
+    public string subcription_date { get; init; } = string.Empty;
 }
 
 public record UpdateSubscriptionDto
@@ -38,5 +38,5 @@ public record UpdateSubscriptionDto
     public int duration { get; init; }
 
     [Required, StringLength(20)]
-    public string Date { get; init; } = string.Empty;
+    public string subcription_date { get; init; } = string.Empty;
 }
