@@ -18,4 +18,12 @@ namespace newCRUD.Controllers
         {
             return Ok(books);
         }
+    // GET api/books/{id}
+        [HttpGet("{id:guid}")]
+        public ActionResult<Book> GetOne(Guid Id)
+        {
+            var Book = books.FirstOrDefault(a => a.id == Id);
+            return Book is null ? NotFound() : Ok(Book);
+        }
+
     }
