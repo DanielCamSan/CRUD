@@ -25,5 +25,12 @@ namespace newCRUD.Controllers
             var Book = books.FirstOrDefault(a => a.id == Id);
             return Book is null ? NotFound() : Ok(Book);
         }
-
+     // POST api/books
+        [HttpPost]
+        public ActionResult<Book> Create([FromBody] Book book)
+        {
+            book.Id = Guid.NewGuid();
+            books.Add(book);
+            return CreatedAtAction(nameof(GetOne), new { id = book.Id }, book); 
+        }
     }
