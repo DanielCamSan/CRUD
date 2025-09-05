@@ -29,3 +29,15 @@ public record CreateSubscriptionDto
     [Required, DataType(DataType.Date)]
     public DateTime SubscriptionDate { get; init; }
 }
+
+public record UpdateSubscriptionDto
+{
+    [Required, StringLength(80, ErrorMessage = "El nombre no puede exceder 80 caracteres")]
+    public string Name { get; init; } = string.Empty;
+
+    [Required, Range(1, 60, ErrorMessage = "La duración debe estar entre 1 y 60 meses")]
+    public int Duration { get; init; }
+
+    [Required, DataType(DataType.Date)]
+    public DateTime SubscriptionDate { get; init; }
+}
