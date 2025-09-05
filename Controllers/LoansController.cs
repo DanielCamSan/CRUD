@@ -12,5 +12,12 @@ namespace newCRUD.Controllers
             new Loan( Id = Guid.NewGuid(), Name = "Dabner", Book = "Holes", loanDate = DateOnly.FromDateTime(DateTime.Now), returnDate = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
             new Loan( Id = Guid.NewGuid(), Name = "Andy", Book = "The Giver", loanDate = DateOnly.FromDateTime(DateTime.Now), returnDate = DateOnly.FromDateTime(DateTime.Now.AddDays(7))
         };
+
+        //GET api/loans
+        [HttpGet]
+        public ActionResult<IEnumerable<Loan>> GetAll()
+        {
+            return Ok(loans);
+        }
     }
 }
