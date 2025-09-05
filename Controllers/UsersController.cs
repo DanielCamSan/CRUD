@@ -62,9 +62,9 @@ namespace newCRUD.Controllers
 
         // DELETE api/users/{id}
         [HttpDelete("{id:guid}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Guid Id)
         {
-            var removed = users.RemoveAll(a => a.Id == id);
+            var removed = users.RemoveAll(a => a.id == Id);
             return removed == 0 ? NotFound() : NoContent();
         }
 
