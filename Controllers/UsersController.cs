@@ -34,7 +34,7 @@ namespace newCRUD.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public ActionResult<Animal> Update(Guid id, [FromBody] User user)
+        public ActionResult<User> Update(Guid id, [FromBody] User user)
         {
             var index = _users.FindIndex(a => a.Id == id);
             if (index == -1) return NotFound();
