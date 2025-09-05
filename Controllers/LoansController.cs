@@ -19,5 +19,13 @@ namespace newCRUD.Controllers
         {
             return Ok(loans);
         }
+
+        //GET api/loans/{id}
+        [HttpGet("{id:guid}")]
+        public ActionResult<Loan> GetOne(Guid id)
+        {
+            var loan = loans.FirstOrDefault(l => l.Id == id);
+            return loan is null ? NotFound() : Ok(loan);
+        }
     }
 }
