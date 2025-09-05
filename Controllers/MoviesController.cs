@@ -8,8 +8,8 @@ namespace newCRUD.Controllers
     {
         private static readonly List<Movie> _movies = new()
         {
-            new Movie { Id = Guid.NewGuid(), Name = "Twilight", Category = "Scary", Duration = 240 },
-            new Movie { Id = Guid.NewGuid(), Name = "Bad", Category = "Comedy", Duration = 190 }
+            new Movie { Id = Guid.NewGuid(), Title = "Twilight", Genre = "Scary", Year = 2011 },
+            new Movie { Id = Guid.NewGuid(), Title = "Bad", Genre = "Comedy", Year = 1990 }
         };
 
         // READ: GET api/movies
@@ -36,9 +36,9 @@ namespace newCRUD.Controllers
             var movie = new Movie
             {
                 Id = Guid.NewGuid(),
-                Name = dto.Name.Trim(),
-                Category = dto.Category.Trim(),
-                Duration = dto.Duration
+                Title = dto.Title.Trim(),
+                Genre = dto.Genre.Trim(),
+                Year = dto.Year
             };
 
             _movies.Add(movie);
@@ -58,9 +58,9 @@ namespace newCRUD.Controllers
             var updated = new Movie
             {
                 Id = id,
-                Name = dto.Name.Trim(),
-                Category = dto.Category.Trim(),
-                Duration = dto.Duration
+                Title = dto.Title.Trim(),
+                Genre = dto.Genre.Trim(),
+                Year = dto.Year
             };
 
             _movies[index] = updated;
