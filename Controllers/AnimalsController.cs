@@ -17,6 +17,26 @@ namespace newCRUD.Controllers
         public ActionResult<IEnumerable<Animal>> GetAll()
             => Ok(_animals);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // READ: GET api/animals/{id}
         [HttpGet("{id:guid}")]
         public ActionResult<Animal> GetOne(Guid id)
