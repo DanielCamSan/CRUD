@@ -24,16 +24,16 @@ namespace newCRUD.Controllers
 
         private static IEnumerable<T> OrderByProp<T>(IEnumerable<T> src, string? sort, string? order)
         {
-            if (string.IsNullOrWhiteSpace(sort)) return src; // no-op
+            if (string.IsNullOrWhiteSpace(sort)) return src; 
             var prop = typeof(T).GetProperty(sort, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            if (prop is null) return src; // campo inválido => no ordenar
+            if (prop is null) return src; 
 
             return string.Equals(order, "desc", StringComparison.OrdinalIgnoreCase)
                 ? src.OrderByDescending(x => prop.GetValue(x))
                 : src.OrderBy(x => prop.GetValue(x));
         }
 
-        // ✅ LIST: GET api/movies (con paginación + ordenamiento + búsqueda + filtro)
+        // LIST: GET api/movies (con paginación + ordenamiento + búsqueda + filtro)
         [HttpGet]
         public IActionResult GetAll(
             [FromQuery] int? page,
@@ -49,7 +49,7 @@ namespace newCRUD.Controllers
 
             IEnumerable<Movie> query = _movies;
 
-            // 🔎 búsqueda libre (Title/Genre)
+            // busqueda libre (Title/Genre)
             if (!string.IsNullOrWhiteSpace(q))
             {
                 query = query.Where(m =>
@@ -57,22 +57,22 @@ namespace newCRUD.Controllers
                     m.Genre.Contains(q, StringComparison.OrdinalIgnoreCase));
             }
 
-            // 🎬 filtro específico (Genre)
+            // filtro específico (Genre)
             if (!string.IsNullOrWhiteSpace(genre))
             {
                 query = query.Where(m => m.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase));
             }
 
-            // 📅 filtro específico (Year)
+            // filtro especifico (Year)
             if (year.HasValue)
             {
                 query = query.Where(m => m.Year == year.Value);
             }
 
-            // ↕️ ordenamiento dinámico (safe)
+            // ordenamiento dinamico (safe)
             query = OrderByProp(query, sort, order);
 
-            // 📄 paginación
+            // paginacion
             var total = query.Count();
             var data = query.Skip((p - 1) * l).Take(l).ToList();
 
