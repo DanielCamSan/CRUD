@@ -15,7 +15,7 @@ public class User
     public int Age { get; set; }
 
     [Required, StringLength(128)]
-    public string password { get; set; } = "";
+    public string  password { get; set; } = "";
 
 
 }
