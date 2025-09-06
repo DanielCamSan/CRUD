@@ -11,11 +11,11 @@ public class Movie
     [Required, StringLength(50)]
     public string Genre { get; set; } = string.Empty;
 
-    [Range(1888, 2100)]
+    [Range(1888, 2100)] 
     public int Year { get; set; }
 }
 
-// DTOs (input/output for the API)
+// DTOs (entrada/salida para la API)
 public record CreateMovieDto
 {
     [Required, StringLength(150)]
