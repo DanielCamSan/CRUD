@@ -1,10 +1,10 @@
 ﻿Method	URL				Description
 
-GET		api/Subscription		returns the list of all subscriptions
-GET		api/Subscription/{id}	returns a single subscription with that id
-POST    api/Subscription		creates a subscription
-PUT		api/Subscription/{id}  replace a subscription
-DELETE	api/Subscription/{id}	erase a subscription
+GET		api/subscriptions		returns the list of all subscriptions
+GET		api/subscriptions/{id}	returns a single subscription with that id
+POST    api/subscriptions		creates a subscription
+PUT		api/subscriptions/{id}  replace a subscription
+DELETE	api/subscriptions/{id}	erase a subscription
 
 Method   URL                  Description
 
