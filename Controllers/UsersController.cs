@@ -9,10 +9,10 @@ namespace newCRUD.Controllers
     {
         private static readonly List<User> _users = new()
         {
-            new User { Id = Guid.NewGuid(), Name = "Alice", Email = "alice@mail.com", Password = "Secret123", Age = 25 },
-            new User { Id = Guid.NewGuid(), Name = "Bob", Email = "bob@mail.com", Password = "Passw0rd!", Age = 15 },
-            new User { Id = Guid.NewGuid(), Name = "Charlie", Email = "charlie@mail.com", Password = "Charlie123", Age = 22 },
-            new User { Id = Guid.NewGuid(), Name = "Diana", Email = "diana@mail.com", Password = "DianaPass", Age = 50 }
+            new User { Id = Guid.NewGuid(), Name = "Alice", Email = "alice@gmail.com", Password = "Secret123", Age = 25 },
+            new User { Id = Guid.NewGuid(), Name = "Mario", Email = "mario@gmail.com", Password = "Passw0rd!", Age = 15 },
+            new User { Id = Guid.NewGuid(), Name = "Jorge", Email = "jorge@gmail.com", Password = "Jorge123", Age = 22 },
+            new User { Id = Guid.NewGuid(), Name = "Diana", Email = "diana@gmail.com", Password = "DianaPass", Age = 50 }
         };
 
         private static (int page, int limit) NormalizePage(int? page, int? limit)
@@ -24,9 +24,9 @@ namespace newCRUD.Controllers
 
         private static IEnumerable<T> OrderByProp<T>(IEnumerable<T> src, string? sort, string? order)
         {
-            if (string.IsNullOrWhiteSpace(sort)) return src; // no ordenar
+            if (string.IsNullOrWhiteSpace(sort)) return src; 
             var prop = typeof(T).GetProperty(sort, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            if (prop is null) return src; // campo inválido => no ordenar
+            if (prop is null) return src; 
 
             return string.Equals(order, "desc", StringComparison.OrdinalIgnoreCase)
                 ? src.OrderByDescending(x => prop.GetValue(x))
