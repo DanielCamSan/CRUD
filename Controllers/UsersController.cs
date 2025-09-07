@@ -82,6 +82,7 @@ namespace newCRUD.Controllers
                 ? NotFound(new { error = "User not found", status = 404 })
                 : Ok(user);
         }
+
         // CREATE: POST api/users
         [HttpPost]
         public ActionResult<User> Create([FromBody] CreateUserDto dto)
@@ -96,6 +97,7 @@ namespace newCRUD.Controllers
                 Password = dto.Password.Trim(),
                 Age = dto.Age
             };
+
             _users.Add(user);
             return CreatedAtAction(nameof(GetOne), new { id = user.Id }, user);
         }
@@ -122,6 +124,7 @@ namespace newCRUD.Controllers
             _users[index] = updated;
             return Ok(updated);
         }
+
         // DELETE: DELETE api/users/{id}
         [HttpDelete("{id:guid}")]
         public IActionResult Delete(Guid id)
