@@ -34,8 +34,44 @@ namespace newCRUD.Controllers
         }
         // READ: GET api/users
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAll()
-            => Ok(_users);
+        public IActionResult GetAll(
+            [FromQuery] int? page,
+            [FromQuery] int? limit,
+            [FromQuery] string? sort,   // ejemplo: name | email | age
+            [FromQuery] string? order,  // asc | desc
+            [FromQuery] string? q,      // búsqueda en Name/Email
+            [FromQuery] int? minAge,    // filtro extra: edad mínima
+            [FromQuery] int? maxAge     // filtro extra: edad máxima
+        )
+        {
+            var (p, l) = NormalizePage(page, limit);
+
+            IEnumerable<User> query = _users;
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                query = query.Where(u =>
+                    u.Name.Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                    u.Email.Contains(q, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (minAge.HasValue)
+                query = query.Where(u => u.Age >= minAge.Value);
+
+            if (maxAge.HasValue)
+                query = query.Where(u => u.Age <= maxAge.Value);
+
+            query = OrderByProp(query, sort, order);
+
+            var total = query.Count();
+            var data = query.Skip((p - 1) * l).Take(l).ToList();
+
+            return Ok(new
+            {
+                data,
+                meta = new { page = p, limit = l, total }
+            });
+        }
 
         // READ: GET api/users/{id}
         [HttpGet("{id:guid}")]
