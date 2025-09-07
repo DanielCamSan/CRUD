@@ -5,7 +5,7 @@ using static newCRUD.Models.Movie;
 namespace newCRUD.Controllers
 {
     [ApiController]
-    [Route("api/[v1]")]
+    [Route("api/v1/[controller]")]
     public class MoviesController : ControllerBase
     {
         private static readonly List<Movie> _movies = new()
