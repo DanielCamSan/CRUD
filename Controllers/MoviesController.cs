@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.Intrincisc.X86;
+using System.Runtime.Intrinsics.X86;
 namespace newCRUD.Controllers {
     [ApiController]
     [Route("api/[controller]")]
@@ -22,7 +22,7 @@ namespace newCRUD.Controllers {
         private static IEnumerable<T> OrderByProp<T>(IEnumerable<T> src, string? sort, string? order)
         {
             if (string.IsNullOrWhiteSpace(sort)) return src; // no-op
-            var prop = typeof(T).GetProperty(sort, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            var prop = typeof(T).GetProperty(sort, System.Reflection.BindingFlags.IgnoreCase | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             if (prop is null) return src; // campo inválido => no ordenar
 
             return string.Equals(order, "desc", StringComparison.OrdinalIgnoreCase)
