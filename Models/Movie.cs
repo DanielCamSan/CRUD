@@ -11,7 +11,7 @@ public class Movie
     [Required, StringLength(50)]
     public string Genre { get; set; } = string.Empty;
 
-    [Range(0, 100)]
+    [Range(1950, 2025)]
     public int Year { get; set; }
 }
 
@@ -23,7 +23,7 @@ public record CreateMovieDto
     [Required, StringLength(50)]
     public string Genre { get; init; } = string.Empty;
 
-    [Range(0, 100)]
+    [Range(1950, 2025)]
     public int Year { get; init; }
 }
 
@@ -36,6 +36,6 @@ public record UpdateMovieDto
     [Required, StringLength(50)]
     public string Genre { get; init; } = string.Empty;
 
-    [Range(0, 100)]
+    [Range(1950, 2025)]
     public int Year { get; init; }
 }

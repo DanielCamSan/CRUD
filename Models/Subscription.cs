@@ -18,7 +18,7 @@ public class Subscription
     {
         [Required, StringLength(100)]
         public string Name { get; init; } = string.Empty;
-        [Required]
+        [Required, Range(30, 365)]
         public int Duration { get; init; }
     }
 

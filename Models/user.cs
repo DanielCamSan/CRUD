@@ -18,7 +18,7 @@ public class User
 }
 
 // DTOs (entrada/salida para la API)
-public record CreateAnimalDto
+public record CreateUserDto
 {
     [Required, StringLength(100)]
     public string Name { get; init; } = string.Empty;
@@ -28,7 +28,7 @@ public record CreateAnimalDto
 
 }
 
-public record UpdateAnimalDto
+public record UpdateUserDto
 {
     [Required, StringLength(100)]
     public string Name { get; init; } = string.Empty;
