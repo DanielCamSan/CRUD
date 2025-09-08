@@ -38,8 +38,10 @@ namespace newCRUD.Controllers
             [FromQuery] int? pg,
             [FromQuery] int? lim,
             [FromQuery] string? sort,      
-            [FromQuery] string? order,    
-            [FromQuery] string? q,        
+            [FromQuery] string? order,   
+            
+            [FromQuery] string? q,     
+            
         )
         {
             var (p, l) = Normalizepg(pg, lim);
