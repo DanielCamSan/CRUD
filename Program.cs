@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,14 +35,25 @@ builder.Services.AddControllers()
         };
     });
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("moviesLimiter", c =>
+    {
+        c.Window = TimeSpan.FromSeconds(10);
+        c.PermitLimit = 5;
+        c.QueueLimit = 0;
+    });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline q .
-
+// Pipeline
 app.UseHttpsRedirection();
-
+app.UseCors();
 app.UseAuthorization();
+app.UseRateLimiter();
 
-app.MapControllers();
+app.MapControllers()
+   .RequireRateLimiting("moviesLimiter");
 
 app.Run();
