@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
-using System.Runtime.Intrinsics.X86;
-
-namespace newCRUD.Controllers
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 
 namespace newCRUD.Controllers
 {
