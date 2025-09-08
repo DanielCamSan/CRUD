@@ -1,44 +1,21 @@
-﻿# Cinema API – Team07
+# Cinema API – Team07
 
-API REST desarrollada con **ASP.NET Core** para gestionar **Movies**, **Users** y **Subscriptions**.  
+**Group Members:**  
+- SORIA AGUIRRE RENE  
+- MAIZ HINOJOSA JUAN PABLO  
+- RIMASSA FERNANDEZ ERNESTO DAVID  
 
-Cada recurso implementa un **CRUD completo** con:
-- Persistencia en memoria (`List<T>`)
-- Identificadores **GUID**
-- DTOs con validaciones (`DataAnnotations`)
-- Endpoints con **paginación, filtros y ordenamiento**
-- Respuesta uniforme `{ data, meta }`
+This is a REST API made with **ASP.NET Core** to manage **Movies**, **Users**, and **Subscriptions**.
 
----
-
-## Requisitos
-
-- .NET SDK 8 o 9  
-- Visual Studio 2022 o VS Code  
-- Navegador web (para probar con Swagger)  
+Each part has full **CRUD**:
+- Data is saved in memory (`List<T>`)
+- Every item has a **GUID Id**
+- Validation with **DTOs**
+- Endpoints have **pagination, filters and sort**
+- Responses use this format: `{ data, meta }`
 
 ---
-
-##  Cómo ejecutar
-
-1. Clonar el repositorio.  
-2. En la raíz del proyecto, ejecutar:
-
-   ```bash
-   dotnet build
-   dotnet run
-   ```
-
-3. Abrir en el navegador:
-
-   ```
-   https://localhost:<puerto>/swagger
-   ```
-
----
-
-##  Estructura del proyecto
-
+## Project structure
 ```
 CRUD/
  ├─ Controllers/
@@ -52,10 +29,8 @@ CRUD/
  ├─ Program.cs
  └─ README.md
 ```
-
 ---
-
-##  Endpoints principales
+## Main endpoints
 
 ### Movies
 - `GET /api/v1/movies?page=1&limit=5&sort=year&order=desc&q=action`
@@ -64,7 +39,7 @@ CRUD/
 - `PUT /api/v1/movies/{id}`
 - `DELETE /api/v1/movies/{id}`
 
-**Ejemplo POST**
+**POST example**
 ```json
 {
   "title": "Inception",
@@ -72,9 +47,7 @@ CRUD/
   "year": 2010
 }
 ```
-
 ---
-
 ### Users
 - `GET /api/v1/users?page=1&limit=10&q=juan`
 - `GET /api/v1/users/{id}`
@@ -82,16 +55,14 @@ CRUD/
 - `PUT /api/v1/users/{id}`
 - `DELETE /api/v1/users/{id}`
 
-**Ejemplo POST**
+**POST example**
 ```json
 {
   "name": "Juan Pérez",
   "email": "juanperez@example.com"
 }
 ```
-
 ---
-
 ### Subscriptions
 - `GET /api/v1/subscriptions?page=1&limit=10&minDuration=3&maxDuration=12&fromDate=2025-01-01&toDate=2025-12-31`
 - `GET /api/v1/subscriptions/{id}`
@@ -99,7 +70,7 @@ CRUD/
 - `PUT /api/v1/subscriptions/{id}`
 - `DELETE /api/v1/subscriptions/{id}`
 
-**Ejemplo POST**
+**POST example**
 ```json
 {
   "subscriptionDate": "2025-09-05T00:00:00Z",
@@ -109,9 +80,7 @@ CRUD/
 ```
 
 ---
-
-##  Ejemplo de respuesta de listados
-
+Example of list response
 ```json
 {
   "data": [
@@ -138,39 +107,32 @@ CRUD/
   }
 }
 ```
-
 ---
+## Validations used
 
-## Validaciones
-
-- `[Required]` → campos obligatorios  
-- `[StringLength]` → límite de caracteres  
-- `[Range]` → valores mínimos y máximos  
-- `[ApiController]` → validación automática de ModelState (400 en errores)  
-
+- `[Required]` → field is required  
+- `[StringLength]` → max characters  
+- `[Range]` → min and max values  
+- `[ApiController]` → auto check model state (400 if error)
 ---
+## Branches
 
-##  Flujo de ramas
-
-- **Rama del equipo**: `cinema/team07`  
-- **Subramas**:  
+- **Team branch**: `cinema/team07`  
+- **Sub branches**:  
   - `cinema/team07-movies`  
   - `cinema/team07-users`  
   - `cinema/team07-subscriptions`  
 
-**Pull Requests**:  
-1. Cada subrama → `cinema/team07`  
-2. Rama del equipo (`cinema/team07`) → `main`  
-
+**Pull Requests:**  
+1. Sub branch → `cinema/team07`  
+2. Team branch → `main`  
 ---
+## Delivery checklist
 
-##  Checklist de entrega
-
--  Movies CRUD con filtros, paginación y ordenamiento  
--  Users CRUD   
--  Subscriptions CRUD con filtros, paginación y ordenamiento  
--  Respuesta uniforme `{ data, meta }` en listados  
--  Validaciones con `DataAnnotations`  
--  Swagger activo  
--  Rama `cinema/team07` integrada con todas las subramas  
-
+- Movies CRUD with filters, sort and pagination  
+- Users CRUD  
+- Subscriptions CRUD with filters, sort and pagination  
+- Responses use `{ data, meta }` format  
+- Validations using `DataAnnotations`  
+- Swagger enabled  
+- Final branch is `cinema/team07` with all work merged  
