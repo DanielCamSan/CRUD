@@ -11,7 +11,7 @@ Included to cinema: Users, Movies & Subscriptions All of them have their own mod
 5. Patch
 6. Delete
 
-## Endpints
+## Endpoints
 1. Movies:
 - LIST: GET api/movies  (con paginación + ordenamiento + búsqueda + filtro)
 - GET/api/movies
