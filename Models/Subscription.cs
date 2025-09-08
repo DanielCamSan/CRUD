@@ -17,7 +17,7 @@ namespace newCRUD.Models
         public int DurationMonths { get; set; }
     }
 
-    // DTOs
+    // DTOs para entrada/salida
     public record CreateSubscriptionDto
     {
         [Required, StringLength(100)]
@@ -41,18 +41,4 @@ namespace newCRUD.Models
         [Range(1, 120)]
         public int DurationMonths { get; init; }
     }
-}
-
-}
-
-public record UpdateSubscriptionDto
-{
-    [Required, StringLength(100)]
-    public string Name { get; init; } = string.Empty;
-
-    [Required]
-    public DateTime SubscriptionDate { get; init; }
-
-    [Range(1, 120)]
-    public int DurationMonths { get; init; }
 }
