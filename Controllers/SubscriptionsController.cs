@@ -96,9 +96,6 @@ namespace newCRUD.Controllers
             subs.Add(subscription);
             return CreatedAtAction(nameof(GetOne), new { id = subscription.Id }, subscription);
         }
-
-
-        // UPDATE (full): PUT api/subscriptions/{id}
         [HttpPut("{id:guid}")]
         public ActionResult<Animal> Update(Guid id, [FromBody] UpdateSubscriptionDto dto)
         {
@@ -116,9 +113,6 @@ namespace newCRUD.Controllers
             subs[index] = updated;
             return Ok(updated);
         }
-
-
-        // DELETE: DELETE api/animals/{id}
         [HttpDelete("{id:guid}")]
         public IActionResult Delete(Guid id)
         {
