@@ -105,6 +105,13 @@ namespace newCRUD.Controllers
             return Ok(updated);
         }
 
-
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            var removed = subscriptions.RemoveAll(s => s.Id == id);
+            return removed == 0
+                ? NotFound(new { error = "Subscription not found", status = 404 })
+                : NoContent();
+        }
     }
 }
