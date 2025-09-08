@@ -73,35 +73,17 @@ public record UpdateUserDto
     public string password { get; init; } = "";
 }
 ```
-## Running the project
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/newCRUD.git
-   cd newCRUD
-   ```
-2. **Restore dependencies**
-    ```bash
-    dotnet restore
-    ```
-3. **Run the API**
-    ```bash
-    dotnet run
-    ```
-4. **Open in Postman**
-    ```bash
-    http://localhost:5107/api/users
-    ```
-
 ## Notes
 
 - Currently uses in-memory storage (`List<User>`). All data resets on restart.  
 - Passwords are stored without strong hashing. Use SHA256, BCrypt, or PBKDF2 for production.  
 - For production, replace `_users` with a database (EF Core, SQL Server, PostgreSQL, etc.).
 
-Movie API for a cinema A simple ASP.NET Core Web API project that demonstrates basic CRUD operations on a list of movies. It includes support for paging, sorting, and filtering through query parameters.
+# Movie APIfor a cinema
+A simple ASP.NET Core Web API project that demonstrates basic CRUD operations on a list of movies. It includes support for paging, sorting, and filtering through query parameters.
 
-Features Create, Read, Update, and Delete users (Movie entity). In-memory storage (List) for demo purposes. Query parameters for: Paging (page, limit) Sorting (sort, order) Search (id, Name, Title, Genre) Input validation with Data Annotations. Returns metadata (page, limit, total) in list endpoints. Endpoints Base URL:
+## Features 
+Create, Read, Update, and Delete users (Movie entity). In-memory storage (List) for demo purposes. Query parameters for: Paging (page, limit) Sorting (sort, order) Search (id, Name, Title, Genre) Input validation with Data Annotations. Returns metadata (page, limit, total) in list endpoints. Endpoints Base URL:
 
 http://localhost:5000/api/movies
 
@@ -130,3 +112,47 @@ public string Genre { get; init; } = string.Empty;
 [Range(0, 3000)]
 public int Year { get; init; }
 } Running the project Clone the repository git clone https://github.com/your-username/newCRUD.git cd newCRUD Restore dependencies dotnet restore Run the API dotnet run Open in Postman http://localhost:5000/api/movies
+
+
+#  Subscriptions API
+
+This module provides CRUD operations and advanced querying for managing Subscriptions. It supports pagination, filtering, sorting, and structured responses, following RESTful conventions.
+## Class Structure – Subscriptions Module
+### 📦 Domain Model
+#### `Subscription.cs`
+```csharp
+public class Subscription
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public bool IsActive { get; set; }
+    public int DurationInDays { get; set; }
+}
+
+## 🔗 Base Route
+
+/api/subscriptions
+
+## 📌 Endpoints Overview
+
+| Method | Endpoint                     | Requires Body | Body Example / Notes                                                                 |
+|--------|------------------------------|---------------|--------------------------------------------------------------------------------------|
+| GET    | `/api/subscriptions`         | ❌            | Use query parameters for filtering, pagination, and sorting                         |
+| GET    | `/api/subscriptions/{id}`    | ❌            | No body required. `{id}` must be provided in the URL                                |
+| POST   | `/api/subscriptions`         | ✅            | `{ "name": "Premium Plan", "price": 29.99, "isActive": true }`                      |
+| PUT    | `/api/subscriptions/{id}`    | ✅            | `{ "name": "Premium Plus", "price": 39.99, "isActive": true }` – `{id}` in URL      |
+| DELETE | `/api/subscriptions/{id}`    | ❌            | No body required. `{id}` must be provided in the URL                                |
+
+## 🔍 Query Parameters (GET `/api/subscriptions`)
+
+| Parameter     | Type     | Description                                | Example                     |
+|---------------|----------|--------------------------------------------|-----------------------------|
+| `page`        | int      | Page number (starts at 1)                  | `page=2`                    |
+| `pageSize`    | int      | Items per page                             | `pageSize=10`               |
+| `sortBy`      | string   | Field to sort by                           | `sortBy=name`               |
+| `sortOrder`   | string   | `asc` or `desc`                            | `sortOrder=desc`            |
+| `name`        | string   | Filter by name (partial match)             | `name=Premium`              |
+| `isActive`    | boolean  | Filter by active status                    | `isActive=true`             |
+| `minDuration` | int      | Filter subscriptions with duration ≥ value | `minDuration=30`            |
+
