@@ -3,6 +3,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Mi_Cors", policy =>
+    {
+        policy.WithOrigins("http://127.0.0.1:5500").AllowAnyMethod().AllowAnyHeader();
+    });
+}
+);
 
 var app = builder.Build();
 
@@ -11,7 +19,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.MapControllers();
+app.UseCors();
+app.UseRateLimiter();
+app.MapControllers().RequireRateLimiting("default");
 
 app.Run();
