@@ -80,7 +80,7 @@ namespace newCRUD.Controllers
         {
             var animal = _animals.FirstOrDefault(a => a.Id == id);
             return animal is null
-                ? NotFound(new { error = "Animal not found", status = 404 })
+                ? NotFound(new { error = "Animal not found any", status = 404 })
                 : Ok(animal);
         }
 
