@@ -12,4 +12,9 @@
 | POST   | /api/movies         | Create a new movie                                           |
 | PUT    | /api/movies/{id}    | Update an existing movie                                     |
 | DELETE | /api/movies/{id}    | Delete a movie by ID                                         |
+| GET    | /api/users          | Get all users                                |
+| GET    | /api/users/{id}     | Get a single user by ID                      |
+| POST   | /api/users          | Create a new user                            |
+| PUT    | /api/users/{id}     | Update an existing user by ID                |
+| DELETE | /api/users/{id}     | Delete a user by ID                          |
 
