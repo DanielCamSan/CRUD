@@ -17,6 +17,21 @@ builder.Services.AddCors(options =>
 }
 );
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.OnRejected = async (ctx, ct) =>
+    await ctx.HttpContext.Response.WriteAsync("Too many attempts, try again in 1 minute", ct);
+
+    options.AddFixedWindowLimiter("default", config =>
+    {
+        config.PermitLimit = 3;                   
+        config.Window = TimeSpan.FromMinutes(1);    
+        config.QueueLimit = 0;                       
+    });
+}
+);
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -29,6 +44,8 @@ app.UseCors("MyCorsPolicy");
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRateLimiter();
+
+app.MapControllers().RequireRateLimiting("default");
 
 app.Run();
