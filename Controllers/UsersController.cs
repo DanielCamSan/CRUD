@@ -12,11 +12,61 @@ namespace newCRUD.Controllers
             new User {Id = Guid.NewGuid(), Name = "Carlos Méndez",Email = "carlos.mendez@example.com", Passsword = "CarlosPass456!",Age = 35}
         };
 
+        private static (int pg, int lim) Normalizepg(int? pg, int? lim)
+        {
+            var p = pg.GetValueOrDefault(1); if (p < 1) p = 1;
+            var l = lim.GetValueOrDefault(10); if (l < 1) l = 1; if (l > 100) l = 100;
+            return (p, l);
+        }
+        private static IEnumerable<T> OrderByProp<T>(IEnumerable<T> src, string? sort, string? order)
+        {
+            if (string.IsNullOrWhiteSpace(sort)) return src;
+            var prop = typeof(T).GetProperty(sort, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            if (prop is null) return src;
+
+            return string.Equals(order, "desc", StringComparison.OrdinalIgnoreCase)
+                ? src.OrderByDescending(x => prop.GetValue(x))
+                : src.OrderBy(x => prop.GetValue(x));
+        }
         // READ: GET api/Users
         [HttpGet]
 
         public ActionResult<IEnumerable<User>> GetAll()
         => Ok(User);
+        [HttpGet]
+        public IActionResult GetAll(
+            [FromQuery] int? pg,
+            [FromQuery] int? lim,
+            [FromQuery] string? sort,      
+            [FromQuery] string? order,    
+            [FromQuery] string? q,        
+        )
+        {
+            var (p, l) = Normalizepg(pg, lim);
+
+            IEnumerable<User> query = users;
+            //free search
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                query = query.Where(a =>
+                    a.Name.Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                    a.Email.Contains(q, StringComparison.OrdinalIgnoreCase));
+            }
+            //does not require a general search by category
+            //dinamic order
+            query = OrderByProp(query, sort, order);
+
+            //pagination
+            var total = query.Count();
+            var data = query.Skip((p - 1) * l).Take(l).ToList();
+
+            return Ok(new
+            {
+                data,
+                meta = new { pg = p, lim = l, total }
+            });
+        }
+
 
         // READ: GET api/Users/{id}
         [HttpGet("{id:guid}")]
