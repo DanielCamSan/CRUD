@@ -84,6 +84,27 @@ namespace newCRUD.Controllers
             return CreatedAtAction(nameof(GetOne), new { id = sub.Id }, sub);
         }
 
+        [HttpPut("{id:guid}")]
+        public ActionResult<Subscription> Update(Guid id, [FromBody] Subscription.UpdateSubscriptionDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var index = subscriptions.FindIndex(s => s.Id == id);
+            if (index == -1)
+                return NotFound(new { error = "Subscription not found", status = 404 });
+
+            var updated = new Subscription
+            {
+                Id = id,
+                Name = dto.Name.Trim(),
+                Duration = dto.Duration,
+                SubscriptionDate = subscriptions[index].SubscriptionDate
+            };
+
+            subscriptions[index] = updated;
+            return Ok(updated);
+        }
+
 
     }
 }
