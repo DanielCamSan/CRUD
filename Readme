@@ -1,1 +1,68 @@
+# CRUD API - Team 06
 
+API RESTful para gestión de Movies, Subscriptions y Users con operaciones CRUD completas implementadas en ASP.NET Core.
+
+## 🚀 Características
+
+- **ASP.NET Core** Web API
+- Operaciones CRUD completas (Create, Read, Update, Delete)
+- Validaciones de datos integradas
+- Patrón DTO (Data Transfer Object)
+- Código limpio y bien estructurado
+- Almacenamiento en memoria
+
+## 📦 Módulos Implementados
+
+### 🎬 Movies Module
+**Controlador**: `MoviesController.cs`  
+**Modelos**: `Movies.cs`
+
+#### Endpoints:
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/v1/movies` | Obtener todas las películas |
+| `GET` | `/api/v1/movies/{id}` | Obtener película por ID |
+| `POST` | `/api/v1/movies` | Crear nueva película |
+| `PUT` | `/api/v1/movies/{id}` | Actualizar película existente |
+| `DELETE` | `/api/v1/movies/{id}` | Eliminar película |
+
+### 📋 Subscriptions Module
+**Controlador**: `SubscriptionsController.cs`  
+**Modelos**: `Subscriptions.cs`, `SubscriptionDtos.cs`
+
+#### Endpoints:
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/v1/subscriptions` | Obtener todas las suscripciones |
+| `GET` | `/api/v1/subscriptions/{id}` | Obtener suscripción por ID |
+| `POST` | `/api/v1/subscriptions` | Crear nueva suscripción |
+| `PUT` | `/api/v1/subscriptions/{id}` | Actualizar suscripción existente |
+| `DELETE` | `/api/v1/subscriptions/{id}` | Eliminar suscripción |
+
+### 👥 Users Module
+**Controlador**: `UsersController.cs`  
+**Modelos**: `User.cs`, `UserDtos.cs`
+
+#### Endpoints:
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/v1/users` | Obtener todos los usuarios |
+| `GET` | `/api/v1/users/{id}` | Obtener usuario por ID |
+| `POST` | `/api/v1/users` | Crear nuevo usuario |
+| `PUT` | `/api/v1/users/{id}` | Actualizar usuario existente |
+| `DELETE` | `/api/v1/users/{id}` | Eliminar usuario |
+
+## 📋 Validaciones Implementadas
+
+### Users:
+- ✅ Nombre requerido
+- ✅ Email válido y único
+- ✅ Password requerido
+- ✅ Validación de email duplicado
+
+### Movies:
+- ✅ Título requerido
+- ✅ Descripción opcional
+
+### Subscriptions:
+- ✅ Validaciones específicas del módulo
