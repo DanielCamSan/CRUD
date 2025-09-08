@@ -57,5 +57,15 @@ namespace newCRUD.Controllers
                 meta = new { page = p, limit = l, total }
             });
         }
+
+        [HttpGet("{id:guid}")]
+        public ActionResult<Subscription> GetOne(Guid id)
+        {
+            var sub = subscriptions.FirstOrDefault(s => s.Id == id);
+            return sub is null
+                ? NotFound(new { error = "Subscription not found", status = 404 })
+                : Ok(sub);
+        }
+
     }
 }
