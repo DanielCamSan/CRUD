@@ -1,19 +1,42 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
+using System;
+using System.ComponentModel.DataAnnotations;
 public class User
 {
     public Guid Id { get; set; }
-    public string Name { get; set; } = "";
-    public string Email { get; set; } = "";
+
+    [Required, StringLength(100)]
+    public string Name { get; set; } = string.Empty;
+
+    [Required, StringLength(50)]
+    public string Email { get; set; } = string.Empty;
+
+    [Range(0, 100)]
     public int Age { get; set; }
 }
-public record CreateUsersDto
+
+// DTOs (entrada/salida para la API)
+public record CreateUserDto
 {
     [Required, StringLength(100)]
-    public string Name { get; init; }= string.Empty;
-    [Required, StringLength(100)]
+    public string Name { get; init; } = string.Empty;
+
+    [Required, StringLength(50)]
     public string Email { get; init; } = string.Empty;
 
-    [Range(0,100)]
-    public int Age {  get; set; }
+    [Range(0, 100)]
+    public int Age { get; init; }
 }
+
+public record UpdateUserDto
+{
+    [Required, StringLength(100)]
+    public string Name { get; init; } = string.Empty;
+
+    [Required, StringLength(50)]
+    public string Email { get; init; } = string.Empty;
+
+    [Range(0, 100)]
+    public int Age { get; init; }
+}
+
