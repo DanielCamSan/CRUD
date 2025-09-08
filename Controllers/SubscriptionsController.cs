@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using newCRUD.Models;
 using System.Reflection;
 
@@ -16,12 +17,14 @@ namespace newCRUD.Controllers
             new Subscription { Id = Guid.NewGuid(), Name = "Disney Plus Anual", InDate = DateTime.Now.AddDays(-100), Duration = 365 },
             new Subscription { Id = Guid.NewGuid(), Name = "Amazon Prime Video", InDate = DateTime.Now.AddDays(-3), Duration = 30 }
         };
+
         private static (int page, int limit) NormalizePage(int? page, int? limit)
         {
             var p = page.GetValueOrDefault(1); if (p < 1) p = 1;
             var l = limit.GetValueOrDefault(10); if (l < 1) l = 1; if (l > 100) l = 100;
             return (p, l);
         }
+
         private static IEnumerable<T> OrderByProp<T>(IEnumerable<T> src, string? sort, string? order)
         {
             if (string.IsNullOrWhiteSpace(sort)) return src;
@@ -34,16 +37,16 @@ namespace newCRUD.Controllers
         }
 
         [HttpGet]
+        [EnableRateLimiting("fixed")]
         public IActionResult GetAll(
             [FromQuery] int? page,
             [FromQuery] int? limit,
-            [FromQuery] string? sort,
-            [FromQuery] string? order,
-            [FromQuery] string? q
+            [FromQuery] string? sort,  // name | inDate | duration
+            [FromQuery] string? order, // asc | desc
+            [FromQuery] string? q      // Búsqueda en el campo 'Name'
         )
         {
             var (p, l) = NormalizePage(page, limit);
-
             IEnumerable<Subscription> query = _subscriptions;
 
             if (!string.IsNullOrWhiteSpace(q))
@@ -76,7 +79,6 @@ namespace newCRUD.Controllers
         public ActionResult<Subscription> Create([FromBody] CreateSubscriptionDto dto)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
-
             var subscription = new Subscription
             {
                 Id = Guid.NewGuid(),
@@ -84,7 +86,6 @@ namespace newCRUD.Controllers
                 InDate = dto.InDate,
                 Duration = dto.Duration
             };
-
             _subscriptions.Add(subscription);
             return CreatedAtAction(nameof(GetOne), new { id = subscription.Id }, subscription);
         }
@@ -93,7 +94,6 @@ namespace newCRUD.Controllers
         public ActionResult<Subscription> Update(Guid id, [FromBody] UpdateSubscriptionDto dto)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
-
             var index = _subscriptions.FindIndex(s => s.Id == id);
             if (index == -1)
                 return NotFound(new { error = "Subscription not found", status = 404 });
@@ -105,7 +105,6 @@ namespace newCRUD.Controllers
                 InDate = dto.InDate,
                 Duration = dto.Duration
             };
-
             _subscriptions[index] = updated;
             return Ok(updated);
         }
