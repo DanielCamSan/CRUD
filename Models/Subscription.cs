@@ -5,9 +5,11 @@ public class Subscription
     public Guid Id { get; set; }
 
     [Required]
-    public DateTime Subscription_Date { get; set; }
+    public DateTime SubscriptionDate { get; set; }
+
     [Required]
-    public DateTime Duration { get; set; }
+    public TimeSpan Duration { get; set; }
+
     [StringLength(20), Required]
     public string Name { get; set; } = string.Empty;
     
@@ -17,22 +19,22 @@ public class Subscription
 public record CreateSubscriptionDto
 {
     [Required]
-    public DateTime Subscription_Date { get; init; }
+    public DateTime SubscriptionDate { get; init; }
 
     [Required]
-    public DateTime Duration { get; init; }
+    public TimeSpan Duration { get; init; }
 
     [StringLength(20), Required]
     public string Name { get; init; } = string.Empty;
 }
 
-public record UpdateAnimalDto
+public record UpdateSubscriptionDto
 {
     [Required]
-    public DateTime Subscription_Date { get; init; } 
+    public DateTime SubscriptionDate { get; init; } 
 
     [Required]
-    public DateTime Duration { get; init; }
+    public TimeSpan Duration { get; init; }
 
     [StringLength(20), Required]
     public string Name { get; init; } = string.Empty;
