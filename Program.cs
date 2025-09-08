@@ -4,16 +4,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-
-builder.Services.AddCors(options =>
-{
     options.AddPolicy("MiPoliticaCors", policy =>
     {
         policy.WithOrigins("https://localhost:7162",
@@ -58,21 +48,5 @@ app.UseRateLimiter();
 app.MapControllers().RequireRateLimiting("default");
 // Aplica la política a todos los controladores
 
-
-app.Run();
-
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-app.UseCors();
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
