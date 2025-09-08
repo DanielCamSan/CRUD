@@ -22,7 +22,7 @@ builder.Services.AddRateLimiter(options =>
     {
         config.PermitLimit = 6;
         config.Window = TimeSpan.FromMinutes(5);
-        config.QueueLimit = 6;
+        config.QueueLimit = 0;
 
     });
 
