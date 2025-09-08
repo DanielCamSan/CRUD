@@ -98,7 +98,109 @@
 ##### Example:
 - **Request:** DELETE https://localhost:7162/api/v1/users/21ffa068-22a3-4fe2-bfd8-640fdb798aa6
 - **Response** : 204 No Content
-
+### Movies
+#### 1. Method: GetAll
+- **HTTP Method:** GET
+- **Endpoint URL:**  https://localhost:7162/api/v1/movies
+##### Example:
+- **Request:** GET https://localhost:7162/api/v1/movies?page=1&limit=3&sort=year&order=desc
+- **Response** :
+~~~
+{
+    "data": [
+        {
+            "id": "d4ce307f-1e72-4ac4-b35a-b0f6337f326a",
+            "title": "La La Land",
+            "genre": "Musical",
+            "year": 2016
+        },
+        {
+            "id": "a66888f1-7086-4006-bf7e-47000426b2f2",
+            "title": "Mad Max: Fury Road",
+            "genre": "Action",
+            "year": 2015
+        },
+        {
+            "id": "b48ab028-3a5d-4ec7-82df-1335ebcac05e",
+            "title": "Inception",
+            "genre": "Sci-Fi",
+            "year": 2010
+        }
+    ],
+    "meta": {
+        "page": 1,
+        "limit": 3,
+        "total": 4
+    }
+}
+~~~
+---
+#### 2. Method: GetOne
+- **HTTP Method:** GET
+- **Endpoint URL:**  https://localhost:7162/api/v1/movies/{id}
+##### Example:
+- **Request:** GET https://localhost:7162/api/v1/movies/d4ce307f-1e72-4ac4-b35a-b0f6337f326a
+~~~
+{
+    "id": "d4ce307f-1e72-4ac4-b35a-b0f6337f326a",
+    "title": "La La Land",
+    "genre": "Musical",
+    "year": 2016
+}
+~~~
+---
+#### 3. Method: Create
+- **HTTP Method:** POST
+- **Endpoint URL:**  https://localhost:7162/api/v1/movies
+##### Example:
+- **Request:** POST https://localhost:7162/api/v1/movies
+    - **Body** :
+~~~
+{
+    "title": "Interstellar",
+    "genre": "Sci-Fi",
+    "year": 2014
+}
+~~~
+- **Response** :
+~~~
+{
+    "id": "14e59a29-96cd-4eeb-b3eb-e8ca43a6f135",
+    "title": "Interstellar",
+    "genre": "Sci-Fi",
+    "year": 2014
+}
+~~~
+---
+#### 4. Method: Update
+- **HTTP Method:** PUT
+- **Endpoint URL:**  https://localhost:7162/api/v1/movies/{id}
+##### Example:
+- **Request:** PUT https://localhost:7162/api/v1/movies/14e59a29-96cd-4eeb-b3eb-e8ca43a6f135
+    - **Body** :
+~~~
+{
+    "title": "Interstellar",
+    "genre": "Sci-Fi, Space",
+    "year": 2024
+}
+~~~
+- **Response** :
+~~~
+{
+    "id": "14e59a29-96cd-4eeb-b3eb-e8ca43a6f135",
+    "title": "Interstellar",
+    "genre": "Sci-Fi, Space",
+    "year": 2024
+}
+~~~
+---
+#### 5. Method: Delete
+- **HTTP Method:** DELETE
+- **Endpoint URL:**  https://localhost:7162/api/v1/movies/{id}
+##### Example:
+- **Request:** DELETE https://localhost:7162/api/v1/movies/14e59a29-96cd-4eeb-b3eb-e8ca43a6f135
+- **Response** : 204 No Content
 
 
 
