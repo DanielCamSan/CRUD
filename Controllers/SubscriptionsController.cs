@@ -67,5 +67,23 @@ namespace newCRUD.Controllers
                 : Ok(sub);
         }
 
+        [HttpPost]
+        public ActionResult<Subscription> Create([FromBody] Subscription.CreateSubscriptionDto dto)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+            var sub = new Subscription
+            {
+                Id = Guid.NewGuid(),
+                Name = dto.Name.Trim(),
+                Duration = dto.Duration,
+                SubscriptionDate = DateOnly.FromDateTime(DateTime.Now)
+            };
+
+            subscriptions.Add(sub);
+            return CreatedAtAction(nameof(GetOne), new { id = sub.Id }, sub);
+        }
+
+
     }
 }
