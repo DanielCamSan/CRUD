@@ -34,7 +34,7 @@ namespace newCRUD.Controllers
             var prop = typeof(T).GetProperty(sort, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             if (prop is null) return src;
 
-            return string.Equals(order, "desc", StringComparison.OrdinalIgnoreCase)? src.OrderByDescending(x => prop.GetValue(x))git : src.OrderBy(x => prop.GetValue(x));
+            return string.Equals(order, "desc", StringComparison.OrdinalIgnoreCase)? src.OrderByDescending(x => prop.GetValue(x)) : src.OrderBy(x => prop.GetValue(x));
         }
 
 

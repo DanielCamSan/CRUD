@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.RateLimiting;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,14 +14,23 @@ builder.Services.AddCors(options =>
 }
 );
 
-var app = builder.Build();
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("default", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 5; 
+        limiterOptions.Window = TimeSpan.FromSeconds(60);
+        limiterOptions.QueueLimit = 0; 
+    });
+});
 
-// Configure the HTTP request pipeline.
+
+var app = builder.Build();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseCors();
+app.UseCors("Mi_Cors");
 app.UseRateLimiter();
 app.MapControllers().RequireRateLimiting("default");
 
