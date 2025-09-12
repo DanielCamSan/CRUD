@@ -4,7 +4,7 @@ using System.Reflection;
 namespace newCRUD.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")] // <- versión y recurso
+    [Route("api/v1/[controller]")] 
     public class MoviesController : ControllerBase
     {
         private static readonly List<Movie> _movies = new()
@@ -32,24 +32,24 @@ namespace newCRUD.Controllers
                 : src.OrderBy(x => prop.GetValue(x));
         }
 
-        // ✅ LIST: GET api/v1/movies (con paginación + ordenamiento + búsqueda + filtro)
+        
         [HttpGet]
         public IActionResult GetAll(
             [FromQuery] int? page,
             [FromQuery] int? limit,
-            [FromQuery] string? sort,     // ejemplo: Title | Year | Genre
-            [FromQuery] string? order,    // asc | desc
-            [FromQuery] string? q,        // búsqueda en Title/Genre (contains)
-            [FromQuery] string? genre,    // filtro exacto por género
-            [FromQuery] int? yearFrom,    // año mínimo
-            [FromQuery] int? yearTo       // año máximo
+            [FromQuery] string? sort,    
+            [FromQuery] string? order,    
+            [FromQuery] string? q,       
+            [FromQuery] string? genre,    
+            [FromQuery] int? yearFrom,    
+            [FromQuery] int? yearTo      
         )
         {
             var (p, l) = NormalizePage(page, limit);
 
             IEnumerable<Movie> query = _movies;
 
-            // 🔎 búsqueda libre (Title/Genre)
+           
             if (!string.IsNullOrWhiteSpace(q))
             {
                 query = query.Where(m =>
@@ -57,20 +57,20 @@ namespace newCRUD.Controllers
                     m.Genre.Contains(q, StringComparison.OrdinalIgnoreCase));
             }
 
-            // 🧭 filtro específico (Genre)
+      
             if (!string.IsNullOrWhiteSpace(genre))
             {
                 query = query.Where(m => m.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase));
             }
 
-            // 📅 filtros por rango de año
+       
             if (yearFrom.HasValue) query = query.Where(m => m.Year >= yearFrom.Value);
             if (yearTo.HasValue) query = query.Where(m => m.Year <= yearTo.Value);
 
-            // ↕️ ordenamiento dinámico
+     
             query = OrderByProp(query, sort, order);
 
-            // 📄 paginación
+   
             var total = query.Count();
             var data = query.Skip((p - 1) * l).Take(l).ToList();
 
@@ -106,7 +106,7 @@ namespace newCRUD.Controllers
             };
 
             _movies.Add(movie);
-            return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie); // 201 + Location
+            return CreatedAtAction(nameof(GetOne), new { id = movie.Id }, movie); 
         }
 
         // PUT /api/v1/movies/{id}
