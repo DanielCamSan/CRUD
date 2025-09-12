@@ -201,6 +201,108 @@
 ##### Example:
 - **Request:** DELETE https://localhost:7162/api/v1/movies/14e59a29-96cd-4eeb-b3eb-e8ca43a6f135
 - **Response** : 204 No Content
+### Subscriptions
+#### 1. Method: GetAll
+- **HTTP Method:** GET
+- **Endpoint URL:**  https://localhost:7162/api/v1/subscriptions
+##### Example:
+- **Request:** GET https://localhost:7162/api/v1/subscriptions?page=1&limit=2&sort=Name&order=asc
+- **Response** :
+~~~
+{
+    "data": [
+        {
+            "id": "8b7e6c2f-3f59-4c56-b12e-9ad56b2c7a21",
+            "subscription_date": "2025-09-11T21:00:00",
+            "duration": 60,
+            "name": "Plus"
+        },
+        {
+            "id": "5e2f1c9b-4c33-42a1-8b9f-37fcb5d12f44",
+            "subscription_date": "2025-09-11T21:00:00",
+            "duration": 120,
+            "name": "Pro"
+        }
+    ],
+    "meta": {
+        "page": 1,
+        "limit": 2,
+        "total": 4
+    }
+}
+~~~
+---
+#### 2. Method: GetOne
+- **HTTP Method:** GET
+- **Endpoint URL:**  https://localhost:7162/api/v1/subscriptions/{id}
+##### Example:
+- **Request:** GET https://localhost:7162/api/v1/subscriptions/8b7e6c2f-3f59-4c56-b12e-9ad56b2c7a21
+- **Response** :
+~~~
+{
+    "id": "8b7e6c2f-3f59-4c56-b12e-9ad56b2c7a21",
+    "subscription_date": "2025-09-11T21:00:00",
+    "duration": 60,
+    "name": "Plus"
+}
+~~~
+---
+#### 3. Method: Create
+- **HTTP Method:** POST
+- **Endpoint URL:**  https://localhost:7162/api/v1/subscriptions
+##### Example:
+- **Request:** POST https://localhost:7162/api/v1/subscriptions
+    - **Body** :
+~~~
+{
+    "subscription_date": "2025-10-01T00:00:00",
+    "duration": 90,
+    "name": "Premium"
+}
+~~~
+- **Response** :
+~~~
+{
+    "id": "c1234567-89ab-4cde-f012-3456789abcde",
+    "subscription_date": "2025-10-01T00:00:00",
+    "duration": 90,
+    "name": "Premium"
+}
+~~~
+---
+#### 4. Method: Update
+- **HTTP Method:** PUT
+- **Endpoint URL:**  https://localhost:7162/api/v1/subscriptions/{id}
+##### Example:
+- **Request:** PUT https://localhost:7162/api/v1/subscriptions/c1234567-89ab-4cde-f012-3456789abcde
+    - **Body** :
+~~~
+{
+    "subscription_date": "2025-11-01T00:00:00",
+    "duration": 120,
+    "name": "Pro Plus"
+}
+~~~
+- **Response** :
+~~~
+{
+    "id": "c1234567-89ab-4cde-f012-3456789abcde",
+    "subscription_date": "2025-11-01T00:00:00",
+    "duration": 120,
+    "name": "Pro Plus"
+}
+~~~
+---
+#### 5. Method: Delete
+- **HTTP Method:** DELETE
+- **Endpoint URL:**  https://localhost:7162/api/v1/subscriptions/{id}
+##### Example:
+- **Request:** DELETE https://localhost:7162/api/v1/subscriptions/c1234567-89ab-4cde-f012-3456789abcde
+- **Response** : 204 No Content
+
+
+
+
 
 
 
