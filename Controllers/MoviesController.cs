@@ -76,7 +76,7 @@ namespace newCRUD.Controllers
         {
             var movie = movies.FirstOrDefault(a => a. Id == id);
             return movie is null
-                ? NotFound(new { error = "Movie not found", status = 404 })
+                ? NotFound(new { error = "Movie not found any", status = 404 })
                 : Ok(movie);
         }
 
