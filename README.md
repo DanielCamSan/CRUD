@@ -300,7 +300,9 @@
 - **Request:** DELETE https://localhost:7162/api/v1/subscriptions/c1234567-89ab-4cde-f012-3456789abcde
 - **Response** : 204 No Content
 
-
+## Security
+- Rate limits
+- CORS
 
 
 
