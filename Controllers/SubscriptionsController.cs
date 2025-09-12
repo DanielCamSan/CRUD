@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection; 
+using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SubscriptionsCRUD.Controller
 {
@@ -32,14 +33,13 @@ namespace SubscriptionsCRUD.Controller
                 : src.OrderBy(x => prop.GetValue(x));
         }
 
-        // ✅ LIST: GET api/subscriptions  (con paginación + ordenamiento + búsqueda + filtro)
         [HttpGet]
         public IActionResult GetAll(
             [FromQuery] int? page,
             [FromQuery] int? limit,
-            [FromQuery] string? sort,     // ejemplo: name | species | age
+            [FromQuery] string? sort,     // ejemplo: name
             [FromQuery] string? order,    // asc | desc
-            [FromQuery] string? q        // búsqueda en Name/Species (contains)
+            [FromQuery] string? q        // búsqueda en Name
         )
         {
             var (p, l) = NormalizePage(page, limit);
@@ -60,11 +60,12 @@ namespace SubscriptionsCRUD.Controller
             var total = query.Count();
             var data = query.Skip((p - 1) * l).Take(l).ToList();
 
-            return Ok(new
-            {
-                data,
-                meta = new { page = p, limit = l, total }
-            });
+            return Ok(
+                new
+                {
+                    data,
+                    meta = new { page = p, limit = l, total }
+                });
         }
 
         // GET api/subscriptions/{id}
@@ -83,9 +84,10 @@ namespace SubscriptionsCRUD.Controller
             {
                 Id = Guid.NewGuid(),
                 name = dto.name.Trim(),
-                subscription_date = new DateOnly(dto.subscription_date.Year, dto.subscription_date.Month, dto.subscription_date.Day),
+                subscription_date = dto.subscription_date,
                 duration = dto.duration
             };
+            _subscriptions.Add(subscrip); 
             return CreatedAtAction(nameof(GetOne), new { id = subscrip.Id }, subscrip);
         }
 
@@ -103,10 +105,9 @@ namespace SubscriptionsCRUD.Controller
             {
                 Id = id,
                 name = dto.new_name,
-                subscription_date = new DateOnly(dto.new_subscription_date.Year, dto.new_subscription_date.Month, dto.new_subscription_date.Day),
+                subscription_date = dto.new_subscription_date,
                 duration = dto.new_duration
             };
-
             _subscriptions[index] = updated;
             return Ok(updated);
         }
